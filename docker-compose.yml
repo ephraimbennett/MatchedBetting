@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app  # Sync project files for auto-reload
+      - ./db.sqlite3:/app/db.sqlite3  # Persist SQLite database
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+  celery:
+    build: .
+    command: celery -A house_hedge worker -l info
+    depends_on:
+      - redis
+      - web
+  celery-beat:
+    build: .
+    command: celery -A house_hedge beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+  redis:
+    image: redis:alpine

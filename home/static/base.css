@@ -1,0 +1,74 @@
+/* Dark theme colors */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333; /* Changed from background */
+    padding: 10px 20px;
+    position: relative;  /* Helps for alignment debugging */
+}
+
+/* Left side (Welcome message) */
+.nav-left {
+    flex: 1;
+    color: #bbb;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Center navigation */
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+
+/* Ensure links are properly styled */
+.nav-center a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 12px;
+    transition-property: background-color; /* Explicit transition properties */
+    transition-duration: 0.3s;
+}
+
+.nav-center a:hover {
+    background-color: #555; /* Changed from background */
+    border-radius: 5px;
+    cursor:pointer;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #1e1e1e; /* Changed from background */
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    color: #bbb;
+}

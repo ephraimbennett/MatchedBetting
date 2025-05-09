@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+<div class="dashboard-container">
+    <h2>Welcome Back!</h2>
+    <p>Continue optimizing your profits with the best value matched betting strategies.</p>
+    <a href="{% url 'dashboard' %}" class="dashboard-btn">Go to Dashboard</a>
+</div>
+
+{% else %}
+<h1 class="logged-out-message">Best value matched betting. Find the best odds to optimize profits from Bonus Bets, Site Credit, Second Chance,
+    and profit boost
+</h1>
+{% endif %}
+{% endblock %}

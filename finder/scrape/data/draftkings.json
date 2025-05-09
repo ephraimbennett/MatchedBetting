@@ -1,0 +1,657 @@
+{
+    "south florida @ uab": {
+        "spread": {
+            "south florida": [
+                "+6.5",
+                "−154"
+            ],
+            "uab": [
+                "-6.5",
+                "+120"
+            ]
+        },
+        "total": {},
+        "moneyline": {}
+    },
+    "utah state @ new mexico": {
+        "spread": {
+            "utah state": [
+                "+6.5",
+                "−105"
+            ],
+            "new mexico": [
+                "-6.5",
+                "−125"
+            ]
+        },
+        "total": {},
+        "moneyline": {
+            "utah state": "+850",
+            "new mexico": "−1750"
+        }
+    },
+    "iowa @ maryland": {
+        "spread": {
+            "iowa": [
+                "+4.5",
+                "−115"
+            ],
+            "maryland": [
+                "-4.5",
+                "−115"
+            ]
+        },
+        "total": {
+            "over": [
+                "186.5",
+                "−115"
+            ],
+            "under": [
+                "186.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "iowa": "+165",
+            "maryland": "−215"
+        }
+    },
+    "rutgers @ oregon": {
+        "spread": {
+            "rutgers": [
+                "+7.5",
+                "−105"
+            ],
+            "oregon": [
+                "-7.5",
+                "−115"
+            ]
+        },
+        "total": {
+            "over": [
+                "153.5",
+                "−105"
+            ],
+            "under": [
+                "153.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "rutgers": "+285",
+            "oregon": "−360"
+        }
+    },
+    "louisville @ notre dame": {
+        "spread": {
+            "louisville": [
+                "-7.5",
+                "−108"
+            ],
+            "notre dame": [
+                "+7.5",
+                "−112"
+            ]
+        },
+        "total": {
+            "over": [
+                "147.5",
+                "−108"
+            ],
+            "under": [
+                "147.5",
+                "−112"
+            ]
+        },
+        "moneyline": {
+            "louisville": "−325",
+            "notre dame": "+260"
+        }
+    },
+    "valparaiso @ evansville": {
+        "spread": {
+            "valparaiso": [
+                "+1.5",
+                "−122"
+            ],
+            "evansville": [
+                "-1.5",
+                "+102"
+            ]
+        },
+        "total": {
+            "over": [
+                "142.5",
+                "−112"
+            ],
+            "under": [
+                "142.5",
+                "−108"
+            ]
+        },
+        "moneyline": {
+            "valparaiso": "+100",
+            "evansville": "−120"
+        }
+    },
+    "md eastern shore @ howard": {
+        "spread": {
+            "md eastern shore": [
+                "+13.5",
+                "−118"
+            ],
+            "howard": [
+                "-13.5",
+                "−102"
+            ]
+        },
+        "total": {
+            "over": [
+                "151.5",
+                "−105"
+            ],
+            "under": [
+                "151.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "md eastern shore": "+625",
+            "howard": "−950"
+        }
+    },
+    "prairie view @ grambling": {
+        "spread": {
+            "prairie view": [
+                "+6.5",
+                "−110"
+            ],
+            "grambling": [
+                "-6.5",
+                "−110"
+            ]
+        },
+        "total": {
+            "over": [
+                "142.5",
+                "−115"
+            ],
+            "under": [
+                "142.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "prairie view": "+235",
+            "grambling": "−290"
+        }
+    },
+    "alabama a&m @ arkansas-pine bluff": {
+        "spread": {
+            "alabama a&m": [
+                "-2.5",
+                "−110"
+            ],
+            "arkansas-pine bluff": [
+                "+2.5",
+                "−110"
+            ]
+        },
+        "total": {
+            "over": [
+                "160.5",
+                "−105"
+            ],
+            "under": [
+                "160.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "alabama a&m": "−155",
+            "arkansas-pine bluff": "+130"
+        }
+    },
+    "alcorn @ florida a&m": {
+        "spread": {
+            "alcorn": [
+                "+1.5",
+                "−115"
+            ],
+            "florida a&m": [
+                "-1.5",
+                "−105"
+            ]
+        },
+        "total": {
+            "over": [
+                "137.5",
+                "−108"
+            ],
+            "under": [
+                "137.5",
+                "−112"
+            ]
+        },
+        "moneyline": {
+            "alcorn": "+102",
+            "florida a&m": "−122"
+        }
+    },
+    "alabama state @ mississippi valley": {
+        "spread": {
+            "alabama state": [
+                "-18.5",
+                "−108"
+            ],
+            "mississippi valley": [
+                "+18.5",
+                "−112"
+            ]
+        },
+        "total": {
+            "over": [
+                "138.5",
+                "−110"
+            ],
+            "under": [
+                "138.5",
+                "−110"
+            ]
+        },
+        "moneyline": {
+            "alabama state": "−2400",
+            "mississippi valley": "+1200"
+        }
+    },
+    "jackson state @ bethune-cookman": {
+        "spread": {
+            "jackson state": [
+                "+1.5",
+                "−105"
+            ],
+            "bethune-cookman": [
+                "-1.5",
+                "−115"
+            ]
+        },
+        "total": {
+            "over": [
+                "144.5",
+                "−115"
+            ],
+            "under": [
+                "144.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "jackson state": "+114",
+            "bethune-cookman": "−135"
+        }
+    },
+    "lehigh @ bucknell": {
+        "spread": {
+            "lehigh": [
+                "+5.5",
+                "−118"
+            ],
+            "bucknell": [
+                "-5.5",
+                "−102"
+            ]
+        },
+        "total": {
+            "over": [
+                "139.5",
+                "−105"
+            ],
+            "under": [
+                "139.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "lehigh": "+180",
+            "bucknell": "−218"
+        }
+    },
+    "mcneese @ se louisiana": {
+        "spread": {
+            "mcneese": [
+                "-7.5",
+                "−118"
+            ],
+            "se louisiana": [
+                "+7.5",
+                "−102"
+            ]
+        },
+        "total": {
+            "over": [
+                "136.5",
+                "−108"
+            ],
+            "under": [
+                "136.5",
+                "−112"
+            ]
+        },
+        "moneyline": {
+            "mcneese": "−340",
+            "se louisiana": "+270"
+        }
+    },
+    "lamar @ northwestern state": {
+        "spread": {
+            "lamar": [
+                "+1.5",
+                "−112"
+            ],
+            "northwestern state": [
+                "-1.5",
+                "−108"
+            ]
+        },
+        "total": {
+            "over": [
+                "131.5",
+                "−105"
+            ],
+            "under": [
+                "131.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "lamar": "+105",
+            "northwestern state": "−125"
+        }
+    },
+    "nicholls state @ new orleans": {
+        "spread": {
+            "nicholls state": [
+                "-8.5",
+                "−112"
+            ],
+            "new orleans": [
+                "+8.5",
+                "−108"
+            ]
+        },
+        "total": {
+            "over": [
+                "149.5",
+                "−112"
+            ],
+            "under": [
+                "149.5",
+                "−108"
+            ]
+        },
+        "moneyline": {
+            "nicholls state": "−395",
+            "new orleans": "+310"
+        }
+    },
+    "coppin state @ south carolina state": {
+        "spread": {
+            "coppin state": [
+                "+16.5",
+                "−108"
+            ],
+            "south carolina state": [
+                "-16.5",
+                "−112"
+            ]
+        },
+        "total": {
+            "over": [
+                "138.5",
+                "−112"
+            ],
+            "under": [
+                "138.5",
+                "−108"
+            ]
+        },
+        "moneyline": {
+            "coppin state": "+850",
+            "south carolina state": "−1450"
+        }
+    },
+    "incarnate word @ ut rio grande valley": {
+        "spread": {
+            "incarnate word": [
+                "+3.5",
+                "−110"
+            ],
+            "ut rio grande valley": [
+                "-3.5",
+                "−110"
+            ]
+        },
+        "total": {
+            "over": [
+                "146.5",
+                "−115"
+            ],
+            "under": [
+                "146.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "incarnate word": "+150",
+            "ut rio grande valley": "−180"
+        }
+    },
+    "stephen f. austin @ east texas a&m": {
+        "spread": {
+            "stephen f. austin": [
+                "-3.5",
+                "−105"
+            ],
+            "east texas a&m": [
+                "+3.5",
+                "−115"
+            ]
+        },
+        "total": {
+            "over": [
+                "132.5",
+                "−115"
+            ],
+            "under": [
+                "132.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "stephen f. austin": "−170",
+            "east texas a&m": "+142"
+        }
+    },
+    "morgan state @ nc central": {
+        "spread": {
+            "morgan state": [
+                "+7.5",
+                "−115"
+            ],
+            "nc central": [
+                "-7.5",
+                "−105"
+            ]
+        },
+        "total": {
+            "over": [
+                "158.5",
+                "−108"
+            ],
+            "under": [
+                "158.5",
+                "−112"
+            ]
+        },
+        "moneyline": {
+            "morgan state": "+240",
+            "nc central": "−298"
+        }
+    },
+    "duke @ virginia": {
+        "spread": {
+            "duke": [
+                "-14.5",
+                "−105"
+            ],
+            "virginia": [
+                "+14.5",
+                "−115"
+            ]
+        },
+        "total": {
+            "over": [
+                "130.5",
+                "−105"
+            ],
+            "under": [
+                "130.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "duke": "−1000",
+            "virginia": "+650"
+        }
+    },
+    "delaware state @ norfolk state": {
+        "spread": {
+            "delaware state": [
+                "+9.5",
+                "−110"
+            ],
+            "norfolk state": [
+                "-9.5",
+                "−110"
+            ]
+        },
+        "total": {
+            "over": [
+                "147.5",
+                "−115"
+            ],
+            "under": [
+                "147.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "delaware state": "+360",
+            "norfolk state": "−470"
+        }
+    },
+    "houston christian @ a&m-corpus christi": {
+        "spread": {
+            "houston christian": [
+                "+8.5",
+                "−118"
+            ],
+            "a&m-corpus christi": [
+                "-8.5",
+                "−102"
+            ]
+        },
+        "total": {
+            "over": [
+                "142.5",
+                "−115"
+            ],
+            "under": [
+                "142.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "houston christian": "+275",
+            "a&m-corpus christi": "−345"
+        }
+    },
+    "kansas state @ utah": {
+        "spread": {
+            "kansas state": [
+                "+2.5",
+                "−118"
+            ],
+            "utah": [
+                "-2.5",
+                "−102"
+            ]
+        },
+        "total": {
+            "over": [
+                "146.5",
+                "−105"
+            ],
+            "under": [
+                "146.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "kansas state": "+120",
+            "utah": "−142"
+        }
+    },
+    "texas southern @ southern university": {
+        "spread": {
+            "texas southern": [
+                "+6.5",
+                "−108"
+            ],
+            "southern university": [
+                "-6.5",
+                "−112"
+            ]
+        },
+        "total": {
+            "over": [
+                "140.5",
+                "−115"
+            ],
+            "under": [
+                "140.5",
+                "−105"
+            ]
+        },
+        "moneyline": {
+            "texas southern": "+235",
+            "southern university": "−290"
+        }
+    },
+    "arizona @ baylor": {
+        "spread": {
+            "arizona": [
+                "+1.5",
+                "−120"
+            ],
+            "baylor": [
+                "-1.5",
+                "+100"
+            ]
+        },
+        "total": {
+            "over": [
+                "151.5",
+                "−105"
+            ],
+            "under": [
+                "151.5",
+                "−115"
+            ]
+        },
+        "moneyline": {
+            "arizona": "+105",
+            "baylor": "−125"
+        }
+    }
+}

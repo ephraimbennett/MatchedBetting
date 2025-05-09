@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} - Login {% endblock %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
+
+{% block content %}
+<script src="{% static 'login.js' %}"></script>
+<div class="login-container">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">Send</button>
+        </div>
+
+        <!-- Display error message if authentication fails -->
+        {% if error %}
+            <div class="error-message" style="color: red;">
+                {{ error }}
+            </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

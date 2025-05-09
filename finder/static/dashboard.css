@@ -1,0 +1,174 @@
+/* General Page Styling */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Dashboard Container */
+.dashboard-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Top Row */
+.dashboard-top {
+    display: flex;
+    justify-content: space-around;
+    background-color: #222;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Grid Layout for Betting Options */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.dashboard-grid button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dashboard-grid button:hover {
+    background-color: #0056b3;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Side Navigation Menu */
+.side-menu {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: #333;
+    padding-top: 60px;
+    transition: 0.3s;
+}
+
+.side-menu a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+.side-menu a:hover {
+    background-color: #555;
+}
+
+/* Close Button */
+.close-menu {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Open Side Menu */
+.side-menu.open {
+    left: 0;
+}
+
+
+/* Visible & Properly Positioned Hamburger Menu */
+.hamburger-menu {
+    font-size: 32px; /* Make the icon larger */
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Promotions Board */
+.promos-board {
+    margin-top: 30px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Individual Promo Item */
+.promo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Sportsbook Name */
+.promo-name {
+    font-weight: bold;
+    color: #4CAF50; /* Green for branding */
+    flex: 1;
+}
+
+/* Promotion Description */
+.promo-description {
+    flex: 3;
+    text-align: center;
+}
+
+/* Promo Button */
+.promo-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.promo-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Promotions Header */
+.promos-header {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: white;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}

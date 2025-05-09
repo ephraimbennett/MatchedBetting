@@ -1,0 +1,54 @@
+/* Dashboard container */
+.dashboard-container {
+    text-align: center;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 50px auto;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Dashboard heading */
+.dashboard-container h2 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Dashboard paragraph */
+.dashboard-container p {
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+/* Dashboard button */
+.dashboard-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Centering the h1 for logged-out users */
+.logged-out-message {
+    text-align: center;
+    font-size: 24px;
+    color: #e0e0e0;
+    font-weight: bold;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    line-height: 1.6;
+}

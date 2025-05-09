@@ -1,0 +1,714 @@
+{
+    "south florida @ uab": {},
+    "utah state @ new mexico": {
+        "spread betting": {
+            "utah state": [
+                "6.5",
+                "+106 odds"
+            ],
+            "new mexico": [
+                "-6.5",
+                "-138 odds"
+            ],
+            "utah": [
+                "-1.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "utah state": [
+                "+1400 odds"
+            ],
+            "new mexico": [
+                "-6000 odds"
+            ],
+            "utah": [
+                "-130 odds"
+            ]
+        },
+        "total points": {
+            "utah": [
+                "under",
+                "under 146.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "iowa @ maryland": {
+        "spread betting": {
+            "iowa": [
+                "4.5",
+                "-114 odds"
+            ],
+            "maryland": [
+                "-4.5",
+                "-114 odds"
+            ]
+        },
+        "moneyline": {
+            "iowa": [
+                "+176 odds"
+            ],
+            "maryland": [
+                "-230 odds"
+            ]
+        },
+        "total points": {
+            "iowa": [
+                "over",
+                "over 186.5",
+                "-110 odds"
+            ],
+            "maryland": [
+                "under",
+                "under 186.5",
+                "-118 odds"
+            ]
+        }
+    },
+    "rutgers @ oregon": {
+        "spread betting": {
+            "rutgers": [
+                "7.5",
+                "-110 odds"
+            ],
+            "oregon": [
+                "-7.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "rutgers": [
+                "+255 odds"
+            ],
+            "oregon": [
+                "-320 odds"
+            ]
+        },
+        "total points": {
+            "rutgers": [
+                "over",
+                "over 153.5",
+                "-110 odds"
+            ],
+            "oregon": [
+                "under",
+                "under 153.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "valparaiso @ evansville": {
+        "spread betting": {
+            "valparaiso": [
+                "1.5",
+                "-110 odds"
+            ],
+            "evansville": [
+                "-1.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "valparaiso": [
+                "+102 odds"
+            ],
+            "evansville": [
+                "-122 odds"
+            ]
+        },
+        "total points": {
+            "valparaiso": [
+                "over",
+                "over 142.5",
+                "-115 odds"
+            ],
+            "evansville": [
+                "under",
+                "under 142.5",
+                "-105 odds"
+            ]
+        }
+    },
+    "louisville @ notre dame": {
+        "spread betting": {
+            "louisville": [
+                "-7.5",
+                "-112 odds"
+            ],
+            "notre dame": [
+                "7.5",
+                "-108 odds"
+            ]
+        },
+        "moneyline": {
+            "louisville": [
+                "-320 odds"
+            ],
+            "notre dame": [
+                "+255 odds"
+            ]
+        },
+        "total points": {
+            "louisville": [
+                "over",
+                "over 146.5",
+                "-110 odds"
+            ],
+            "notre dame": [
+                "under",
+                "under 146.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "maryland eastern shore @ howard": {
+        "spread betting": {
+            "maryland": [
+                "-4.5",
+                "-114 odds"
+            ],
+            "howard": [
+                "-12.5",
+                "-132 odds"
+            ]
+        },
+        "moneyline": {
+            "maryland": [
+                "-230 odds"
+            ],
+            "howard": [
+                "-1200 odds"
+            ]
+        },
+        "total points": {
+            "maryland": [
+                "under",
+                "under 186.5",
+                "-118 odds"
+            ],
+            "howard": [
+                "under",
+                "under 150.5",
+                "-105 odds"
+            ]
+        }
+    },
+    "prairie view a m @ grambling": {
+        "spread betting": {
+            "grambling": [
+                "-5.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "grambling": [
+                "-250 odds"
+            ]
+        },
+        "total points": {
+            "grambling": [
+                "under",
+                "under 143.5",
+                "-114 odds"
+            ]
+        }
+    },
+    "lehigh @ bucknell": {
+        "spread betting": {
+            "lehigh": [
+                "4.5",
+                "-102 odds"
+            ],
+            "bucknell": [
+                "-4.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "lehigh": [
+                "+172 odds"
+            ],
+            "bucknell": [
+                "-210 odds"
+            ]
+        },
+        "total points": {
+            "lehigh": [
+                "over",
+                "over 139.5",
+                "-110 odds"
+            ],
+            "bucknell": [
+                "under",
+                "under 139.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "jackson state @ bethune cookman": {
+        "spread betting": {
+            "jackson state": [
+                "1.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "jackson state": [
+                "+102 odds"
+            ]
+        },
+        "total points": {
+            "jackson state": [
+                "over",
+                "over 144.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "alabama state @ mississippi valley state": {
+        "spread betting": {
+            "alabama state": [
+                "-18.5",
+                "-110 odds"
+            ],
+            "mississippi valley state": [
+                "18.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "alabama state": [
+                "-3500 odds"
+            ],
+            "mississippi valley state": [
+                "+1280 odds"
+            ]
+        },
+        "total points": {
+            "alabama state": [
+                "over",
+                "over 138.5",
+                "-110 odds"
+            ],
+            "mississippi valley state": [
+                "under",
+                "under 138.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "mcneese @ se louisiana": {
+        "spread betting": {
+            "mcneese": [
+                "-8.5",
+                "-102 odds"
+            ],
+            "se louisiana": [
+                "8.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "mcneese": [
+                "-350 odds"
+            ],
+            "se louisiana": [
+                "+275 odds"
+            ]
+        },
+        "total points": {
+            "mcneese": [
+                "over",
+                "over 136.5",
+                "-110 odds"
+            ],
+            "se louisiana": [
+                "under",
+                "under 136.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "alcorn state @ florida a m": {
+        "spread betting": {
+            "alcorn state": [
+                "1.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "alcorn state": [
+                "+102 odds"
+            ]
+        },
+        "total points": {
+            "alcorn state": [
+                "over",
+                "over 137.5",
+                "-106 odds"
+            ]
+        }
+    },
+    "alabama a m @ arkansas pine bluff": {},
+    "incarnate word @ ut rio grande valley": {
+        "spread betting": {
+            "incarnate word": [
+                "3.5",
+                "-110 odds"
+            ],
+            "ut rio grande valley": [
+                "-3.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "incarnate word": [
+                "+134 odds"
+            ],
+            "ut rio grande valley": [
+                "-162 odds"
+            ]
+        },
+        "total points": {
+            "incarnate word": [
+                "over",
+                "over 148.5",
+                "+102 odds"
+            ],
+            "ut rio grande valley": [
+                "under",
+                "under 148.5",
+                "-124 odds"
+            ]
+        }
+    },
+    "coppin state @ south carolina state": {
+        "spread betting": {
+            "coppin state": [
+                "16.5",
+                "-110 odds"
+            ],
+            "south carolina state": [
+                "-16.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "coppin state": [
+                "+1100 odds"
+            ],
+            "south carolina state": [
+                "-2500 odds"
+            ]
+        },
+        "total points": {
+            "coppin state": [
+                "over",
+                "over 137.5",
+                "-115 odds"
+            ],
+            "south carolina state": [
+                "under",
+                "under 137.5",
+                "-105 odds"
+            ]
+        }
+    },
+    "morgan state @ north carolina central": {
+        "spread betting": {
+            "morgan state": [
+                "6.5",
+                "-102 odds"
+            ],
+            "north carolina central": [
+                "-6.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "morgan state": [
+                "+235 odds"
+            ],
+            "north carolina central": [
+                "-295 odds"
+            ]
+        },
+        "total points": {
+            "morgan state": [
+                "over",
+                "over 158.5",
+                "-106 odds"
+            ],
+            "north carolina central": [
+                "under",
+                "under 158.5",
+                "-114 odds"
+            ]
+        }
+    },
+    "stephen f. austin @ east texas a m": {
+        "spread betting": {
+            "stephen f. austin": [
+                "-3.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "stephen f. austin": [
+                "-166 odds"
+            ]
+        },
+        "total points": {
+            "stephen f. austin": [
+                "over",
+                "over 132.5",
+                "-115 odds"
+            ]
+        }
+    },
+    "lamar @ nw state": {
+        "spread betting": {
+            "lamar": [
+                "-1.5",
+                "+112 odds"
+            ],
+            "nw state": [
+                "1.5",
+                "-138 odds"
+            ]
+        },
+        "moneyline": {
+            "lamar": [
+                "+100 odds"
+            ],
+            "nw state": [
+                "-120 odds"
+            ]
+        },
+        "total points": {
+            "lamar": [
+                "over",
+                "over 131.5",
+                "-110 odds"
+            ],
+            "nw state": [
+                "under",
+                "under 131.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "nicholls @ new orleans": {
+        "spread betting": {
+            "nicholls": [
+                "-8.5",
+                "-110 odds"
+            ],
+            "new orleans": [
+                "8.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "nicholls": [
+                "-385 odds"
+            ],
+            "new orleans": [
+                "+300 odds"
+            ]
+        },
+        "total points": {
+            "nicholls": [
+                "over",
+                "over 149.5",
+                "-118 odds"
+            ],
+            "new orleans": [
+                "under",
+                "under 149.5",
+                "-104 odds"
+            ]
+        }
+    },
+    "delaware state @ norfolk state": {
+        "spread betting": {
+            "delaware state": [
+                "9.5",
+                "-110 odds"
+            ],
+            "norfolk state": [
+                "-9.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "delaware state": [
+                "+360 odds"
+            ],
+            "norfolk state": [
+                "-480 odds"
+            ]
+        },
+        "total points": {
+            "delaware state": [
+                "over",
+                "over 147.5",
+                "-110 odds"
+            ],
+            "norfolk state": [
+                "under",
+                "under 147.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "houston christian @ texas a m cc": {
+        "spread betting": {
+            "houston christian": [
+                "8.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "houston christian": [
+                "+290 odds"
+            ]
+        },
+        "total points": {
+            "houston christian": [
+                "over",
+                "over 142.5",
+                "-115 odds"
+            ]
+        }
+    },
+    "duke @ virginia": {
+        "spread betting": {
+            "duke": [
+                "-14.5",
+                "-110 odds"
+            ],
+            "virginia": [
+                "14.5",
+                "-110 odds"
+            ]
+        },
+        "moneyline": {
+            "duke": [
+                "-1600 odds"
+            ],
+            "virginia": [
+                "+860 odds"
+            ]
+        },
+        "total points": {
+            "duke": [
+                "over",
+                "over 130.5",
+                "-110 odds"
+            ],
+            "virginia": [
+                "under",
+                "under 130.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "texas southern @ southern university": {
+        "spread betting": {
+            "texas southern": [
+                "6.5",
+                "-102 odds"
+            ],
+            "southern university": [
+                "-6.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "texas southern": [
+                "+235 odds"
+            ],
+            "southern university": [
+                "-295 odds"
+            ]
+        },
+        "total points": {
+            "texas southern": [
+                "over",
+                "over 140.5",
+                "-115 odds"
+            ],
+            "southern university": [
+                "under",
+                "under 140.5",
+                "-105 odds"
+            ]
+        }
+    },
+    "arizona @ baylor": {
+        "spread betting": {
+            "arizona": [
+                "1.5",
+                "-112 odds"
+            ],
+            "baylor": [
+                "-1.5",
+                "-108 odds"
+            ]
+        },
+        "moneyline": {
+            "arizona": [
+                "+100 odds"
+            ],
+            "baylor": [
+                "-120 odds"
+            ]
+        },
+        "total points": {
+            "arizona": [
+                "over",
+                "over 151.5",
+                "-110 odds"
+            ],
+            "baylor": [
+                "under",
+                "under 151.5",
+                "-110 odds"
+            ]
+        }
+    },
+    "kansas state @ utah": {
+        "spread betting": {
+            "kansas state": [
+                "1.5",
+                "-102 odds"
+            ],
+            "utah": [
+                "-1.5",
+                "-120 odds"
+            ]
+        },
+        "moneyline": {
+            "kansas state": [
+                "+108 odds"
+            ],
+            "utah": [
+                "-130 odds"
+            ]
+        },
+        "total points": {
+            "kansas state": [
+                "over",
+                "over 146.5",
+                "-110 odds"
+            ],
+            "utah": [
+                "under",
+                "under 146.5",
+                "-110 odds"
+            ]
+        }
+    }
+}

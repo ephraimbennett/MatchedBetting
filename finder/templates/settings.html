@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'settings.css' %}">
+</head>
+<body>
+    
+    <div class="settings-container">
+        <h2>Member Settings</h2>
+
+        <!-- Display Form -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <!-- Submit Button -->
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+
+        <!-- Back to Dashboard -->
+        <a href="{% url 'dashboard' %}" class="back-btn">← Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

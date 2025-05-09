@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finder Dashboard</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <script src="{% static 'dashboard.js' %}" defer></script>
+
+    {% block extra_style %}
+    {% endblock %}
+</head>
+<body>
+
+    <!-- Side Navigation Menu -->
+    <div class="side-menu">
+        <button class="close-menu" onclick="toggleMenu()">✖</button>
+        <a href="/settings">⚙️ Settings</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/">Profit Boost</a>
+        <a href="/bonus_bets">Bonus Bet</a>
+        <a href="/">Site Credit</a>
+        <a href="/second_chance">Second Chance Bet</a>
+        <a href="/">Qualifying Bet</a>
+        <a href="/">Arbitrage</a>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <div class="dashboard-top">
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
+            <p>Email: <span id="user-email">{{ request.user.email }}</span></p>
+            <p>Potential Profit: $<span id="potential-profit">{{ potential_profit }}</span></p>
+            <p>State: <span id="user-state"> {{settings.state.name}}</span></p>
+        </div>
+        {% block main %}
+        <!-- Grid of Betting Options -->
+        <div class="dashboard-grid">
+            <button onclick="window.location.href='/'">Profit Boost</button>
+            <button onclick="window.location.href='/bonus_bets'">Bonus Bet</button>
+            <button onclick="window.location.href='/'">Site Credit</button>
+            <button onclick="window.location.href='/second_chance'">Second Chance Bet</button>
+            <button onclick="window.location.href='/'">Qualifying Bet</button>
+            <button onclick="window.location.href='/'">Arbitrage</button>
+        </div>
+
+        <div class="promos-board">
+            <h2 class="promos-header">Promotions Available</h2>  <!-- New Header -->
+            {% for promo in promos %}
+            <div class="promo-item">
+                <span class="promo-name">{{ promo.bookmaker }}</span>
+                <span class="promo-description">
+                    {{ promo.description }} <br>
+                    {{ promo.code }}
+                </span>
+                <button class="promo-button" onclick="window.open('{{ promo.url }}').focus()">Claim Offer</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endblock %}
+    </div>
+
+</body>
+</html>
