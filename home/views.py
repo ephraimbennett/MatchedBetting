@@ -3,6 +3,14 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+from google.oauth2 import id_token
+from google.auth.transport import requests
+
+import os
+
 
 from .forms import MemberCreationForm
 
@@ -37,6 +45,8 @@ def register(request):
         print(request.POST)
         if form.is_valid():
             form.save()
+            user = authenticate(request, email=form.cleaned_data['email'], password=form.cleaned_data['password1'])
+            login(request, user)
             return redirect('/')
         else:
             errors = {}
@@ -52,3 +62,27 @@ def handler404(request, error):
     }
     
     return HttpResponse(template.render())
+
+@csrf_exempt
+def auth_receiver(request):
+    """
+    Google calls this URL after the user has signed in with their Google account.
+    """
+    print('Inside')
+    token = request.POST.get('credential')
+    if not token:
+        return HttpResponse("Missing token", status=400)
+
+
+    try:
+        user_data = id_token.verify_oauth2_token(
+            token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
+        )
+    except ValueError:
+        return HttpResponse(status=403)
+
+    # In a real app, I'd also save any new user here to the database.
+    # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
+    #request.session['user_data'] = user_data
+
+    return redirect('login')

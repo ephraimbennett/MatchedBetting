@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -85,13 +90,30 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hedgr',
-        'USER' : 'ephraim_user',
-        'PASSWORD': 'Sd746337',
-        'HOST': 'host.docker.internal',
-        'PORT': '3306'
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER' : os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQL_HOST', 'host.docker.internal'),
+        'PORT': '3306',
+        'OPTIONS' : {
+            'charset' : 'utf8mb4',
+            'init_command' : "SET NAMES 'utf8mb4';"
+        }
     }
 }
+
+# Set up Google OAuth
+GOOGLE_OAUTH_CLIENT_ID = os.environ.get('GOOGLE_OAUTH_CLIENT_ID')
+if not GOOGLE_OAUTH_CLIENT_ID:
+    raise ValueError(
+        'GOOGLE_OAUTH_CLIENT_ID is missing.'
+        'Have you put it in a file at core/.env ?'
+    )
+
+# We need these lines below to allow the Google sign in popup to work.
+SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+
 
 
 # Password validation

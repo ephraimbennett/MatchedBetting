@@ -11,12 +11,18 @@ services:
       - "8000:8000"
     depends_on:
       - redis
+    env_file:
+      - .env
   celery:
     build: .
     command: celery -A house_hedge worker -l info
     depends_on:
       - redis
       - web
+    volumes:
+      - .:/app
+    env_file:
+      - .env
   celery-beat:
     build: .
     command: celery -A house_hedge beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
@@ -24,5 +30,9 @@ services:
       - redis
     volumes:
       - .:/app
+    env_file:
+      - .env
   redis:
     image: redis:alpine
+    env_file:
+      - .env

@@ -7,7 +7,6 @@ from home.models import Member
 class State(models.Model):
     code = models.CharField(max_length=2, unique=True)
     name = models.CharField(max_length=100)
-    timezone = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
@@ -15,6 +14,7 @@ class State(models.Model):
 class Settings(models.Model):
     user = models.OneToOneField(Member, on_delete=models.CASCADE) # The link to member
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
+    timezone = models.CharField(default="Etc/GMT+6", max_length=50)
 
 class BonusBet(models.Model):
     title = models.TextField(null=True)

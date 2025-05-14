@@ -10,6 +10,7 @@
 
 {% block content %}
 <script src="{% static 'login.js' %}"></script>
+<script src="https://accounts.google.com/gsi/client" async></script>
 <div class="login-container">
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
@@ -32,5 +33,24 @@
             </div>
         {% endif %}
     </form>
+
+    <div class="google-login-section">
+        <div id="g_id_onload"
+            data-client_id="636129466708-jrgdjvj8i8nmt59srujn88khoh03k4sa.apps.googleusercontent.com"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-login_uri="http://localhost:8000/auth-receiver/"
+            data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="filled_black"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left">
+        </div>
+    </div>
+
 </div>
 {% endblock %}

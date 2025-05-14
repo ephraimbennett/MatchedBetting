@@ -47,7 +47,7 @@ def bonus_bets(request):
 
     bonus_size = request.GET.get('amount')
     if bonus_size is not None:
-        update_bets()
+        #update_bets()
 
         bm = request.GET.get('bookmaker')
         if bm != 'Any':
@@ -59,7 +59,7 @@ def bonus_bets(request):
 
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
-            local_time = dt_utc.astimezone(pytz.timezone(user_settings.state.timezone))
+            local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
             # Parse the timestamp into a datetime object
             dt = datetime.fromisoformat(str(local_time))
             # Format the datetime object into the desired string
