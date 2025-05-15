@@ -4,6 +4,8 @@ from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import get_user_model
+
 
 
 from google.oauth2 import id_token
@@ -73,7 +75,6 @@ def auth_receiver(request):
     if not token:
         return HttpResponse("Missing token", status=400)
 
-
     try:
         user_data = id_token.verify_oauth2_token(
             token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
@@ -81,8 +82,18 @@ def auth_receiver(request):
     except ValueError:
         return HttpResponse(status=403)
 
-    # In a real app, I'd also save any new user here to the database.
-    # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
-    #request.session['user_data'] = user_data
+    # Save any new user to the database.
+    # You could also authenticate the user here using the details from Google 
+    # (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
 
-    return redirect('login')
+    email = user_data.get("email")
+    first_name = user_data.get("given_name", "")
+    last_name = user_data.get("family_name", "")
+
+    User = get_user_model()
+    user, created = User.objects.get_or_create(email=email, defaults={
+        "email" : email
+    })
+    login(request, user)
+
+    return redirect('/')
