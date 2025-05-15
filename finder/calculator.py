@@ -6,8 +6,9 @@ def calculate_all(data):
 
     bonus_bets = bonus_bet_calc(bets)
     second_bets = second_chance_calc(bets)
+    profit_bets = profit_boost_calc(bets)
 
-    return bonus_bets, second_bets
+    return bonus_bets, second_bets, profit_bets
 
 
 
@@ -119,3 +120,35 @@ def second_chance_calc(bets):
         second_bet['sport'] = bet['sport']
         second_bets.append(second_bet)
     return second_bets
+
+def profit_boost_calc(bets):
+    '''
+    P = (Ob - 1) * B * Sb - Sh
+    Sh = Sb * (((Ob - 1) * B + 1) / ((Oh - 1) + 1))
+    Profit index = (Ob - 1) * ((Ob - 1) + 1) / ((Oh - 1) + 1)
+    '''
+    profit_bets = []
+    for bet in bets:
+        plus = bet['bonus_bet'][1]
+        minus = bet['hedge_bet'][1]
+
+
+        # Calculate the decimal odds
+        # leaving the + 1 out of the decimal formula since we're just gonna take it out later - saves time
+        odd_b = 100 / (plus + 100)
+        odd_h = minus / (minus + 100)
+
+        # simply find the profit index - actual profit calculated when serving to user
+        profit_idx = odd_b * ((odd_b + 1) / (odd_h + 1)) 
+        p_bet = {'bonus_bet': bet['bonus_bet'], 'hedge_bet': bet['hedge_bet']}
+        p_bet['profit_index'] = profit_idx
+        p_bet['title'] = bet['title']
+        p_bet['market'] = bet['market']
+        p_bet['time'] = bet['time']
+        p_bet['sport'] = bet['sport']
+        p_bet['profit_index'] = profit_idx
+        profit_bets.append(p_bet)
+    return profit_bets
+
+        
+

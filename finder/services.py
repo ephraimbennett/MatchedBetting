@@ -1,4 +1,4 @@
-from .models import BonusBet, SecondBet, BookMaker, Promo
+from .models import BonusBet, SecondBet, BookMaker, Promo, ProfitBet
 from .calculator import calculate_all
 from datetime import timezone
 
@@ -15,6 +15,7 @@ def update_bets():
     SecondBet.objects.all().delete()
     BonusBet.objects.all().delete()
     BookMaker.objects.all().delete()
+    ProfitBet.objects.all().delete()
 
     # get the data, will change later obviously
     key_api = "23e42a8dbf01cd559ff15daf7fbe062f"
@@ -37,7 +38,7 @@ def update_bets():
             url_odds = f"{domain}{key}/odds?regions=us&oddsFormat=american&apiKey={key_api}&markets={market}"
             response = requests.get(url=url_odds)
             data.extend(response.json())
-    bets, second_bets = calculate_all(data)
+    bets, second_bets, profit_bets = calculate_all(data)
 
     # have a set of the names of bookmakers, as we go through the bets, add to this set.
     bookmakers = set()
@@ -65,6 +66,18 @@ def update_bets():
         bookmakers.add(bet['hedge_bet'][0])
 
         bet_model = SecondBet(title=bet['title'], bonus_bet=bet['bonus_bet'][0], hedge_bet=bet['hedge_bet'][0])
+        bet_model.bonus_odds = bet['bonus_bet'][1]
+        bet_model.hedge_odds = bet['hedge_bet'][1]
+        bet_model.bonus_name = bet['bonus_bet'][2]
+        bet_model.hedge_name = bet['hedge_bet'][2]
+        bet_model.profit_index = bet['profit_index']
+        bet_model.market = bet['market']
+        bet_model.sport = bet['sport']
+        bet_model.time = bet['time']
+
+        bet_model.save()
+    for bet in profit_bets:
+        bet_model = ProfitBet(title=bet['title'], bonus_bet=bet['bonus_bet'][0], hedge_bet=bet['hedge_bet'][0])
         bet_model.bonus_odds = bet['bonus_bet'][1]
         bet_model.hedge_odds = bet['hedge_bet'][1]
         bet_model.bonus_name = bet['bonus_bet'][2]

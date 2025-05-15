@@ -47,7 +47,7 @@ def bonus_bets(request):
 
     bonus_size = request.GET.get('amount')
     if bonus_size is not None:
-        #update_bets()
+        update_bets()
 
         bm = request.GET.get('bookmaker')
         if bm != 'Any':
@@ -100,7 +100,7 @@ def second_chance(request):
 
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
-            local_time = dt_utc.astimezone(pytz.timezone(user_settings.state.timezone))
+            local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
             # Parse the timestamp into a datetime object
             dt = datetime.fromisoformat(str(local_time))
             # Format the datetime object into the desired string
@@ -130,3 +130,47 @@ def second_chance(request):
 
     return render(request, 'second_chance.html', {'settings': user_settings, 'bookmakers': bookmakers})
 
+@login_required
+def profit_boost(request):
+    user_settings, created = Settings.objects.get_or_create(user=request.user)
+    bookmakers = BookMaker.objects.all()
+
+    bonus_size = request.GET.get('amount')
+
+    if bonus_size is not None:
+        bm = request.GET.get('bookmaker')
+        if bm != 'Any':
+            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
+        else:
+            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
+
+        # grab the bonus stake and the boost percentage
+        stake_b = float(request.GET.get('amount'))
+        boost = float(request.GET.get('boost')) / 100.0 + 1.0
+
+        for bet in bets:
+            # need to calculate the actual profit and then replace the profit index with this
+            odd_h = 100 / abs(bet.hedge_odds)
+            odd_b = bet.bonus_odds / 100
+            bet.profit_index = (odd_b * boost) - (odd_b * boost + 1) / (odd_h + 1) 
+            bet.profit_index *= stake_b
+            # calculate hedge size as well
+            
+            bet.hedge_index = stake_b
+            bet.hedge_index *= (odd_b * boost + 1) / (odd_h + 1)
+
+            time_adj = bet.time.replace("Z", "+0000")
+            dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
+            local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
+            # Parse the timestamp into a datetime object
+            dt = datetime.fromisoformat(str(local_time))
+            # Format the datetime object into the desired string
+            formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
+            bet.time = formatted_time
+        vars = {'bets' : bets, 'settings': user_settings, 'bookmakers': bookmakers}
+
+        return render(request, 'profit_boost.html', vars)
+            
+
+
+    return render(request, 'profit_boost.html', {'settings': user_settings, 'bookmakers': bookmakers})
