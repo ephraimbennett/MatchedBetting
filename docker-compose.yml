@@ -3,12 +3,12 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8080
     volumes:
       - .:/app  # Sync project files for auto-reload
       - ./db.sqlite3:/app/db.sqlite3  # Persist SQLite database
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - redis
     env_file:

@@ -90,11 +90,11 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE'),
-        'USER' : os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': os.getenv('MYSQL_HOST', 'host.docker.internal'),
-        'PORT': '3306',
+        'NAME': os.getenv('GOOGLE_MYSQL_DATABASE'),
+        'USER' : os.getenv('GOOGLE_MYSQL_USER'),
+        'PASSWORD': os.getenv('GOOGLE_MYSQL_PASSWORD'),
+        'HOST': os.getenv('GOOGLE_MYSQL_HOST', 'host.docker.internal'),
+        'PORT': '1234',
         'OPTIONS' : {
             'charset' : 'utf8mb4',
             'init_command' : "SET NAMES 'utf8mb4';"
@@ -134,6 +134,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# List valid domains for csrf
+CSRF_TRUSTED_ORIGINS = ['https://hedgeapp-web-974392355080.us-central1.run.app']
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
