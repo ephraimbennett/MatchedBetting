@@ -131,6 +131,15 @@ def second_chance(request):
     return render(request, 'second_chance.html', {'settings': user_settings, 'bookmakers': bookmakers})
 
 @login_required
+def prompt_action(request):
+    user_settings, created = Settings.objects.get_or_create(user=request.user)
+    if request.user.is_superuser:
+        tasks = request.POST.get("tasks")
+        print(tasks)
+        return render(request, 'prompt.html')
+    return redirect('/')
+
+@login_required
 def profit_boost(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     bookmakers = BookMaker.objects.all()
