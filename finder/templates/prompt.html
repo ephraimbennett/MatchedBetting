@@ -9,32 +9,45 @@
     <link rel="stylesheet" href="{% static 'settings.css' %}">
 </head>
 <body>
+    {% csrf_token %}
     <script>
         // Data to send
-        const data = {
-        message: "Hello from the client!"
-        };
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').getAttribute('value');
 
-        // Wait 5 minutes (300000 ms), then send POST
-        setTimeout(() => {
-        fetch('/prompt', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Network response was not ok");
-            return response.json();
-        })
-        .then(result => {
-            console.log("Success:", result);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-        }, 5 * 1000); // 5 minutes
+
+        
+        var count = 1;
+        // Post every 5 minutes to update bets, every 25 to update promos.
+        setInterval(() => {
+            var tasks = ['update_promos']
+            if (count % 5 == 0) {
+                count = 1;
+                tasks.push('update_promos');
+            }
+            count++;
+            var data = {
+            tasks: tasks
+            };
+            fetch('/prompt/', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken' : csrfToken
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.text();
+            })
+            .then(result => {
+                console.log("Success:");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+            console.log("um is this happening.");
+        }, 5 * 1000); // 1 minutes
 
     </script>
 

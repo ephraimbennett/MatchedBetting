@@ -5,6 +5,7 @@ from .services import update_bets, update_promos
 from django.utils import timezone
 from datetime import datetime, timedelta
 import pytz
+import json
 
 from .forms import SettingsForm
 
@@ -134,8 +135,12 @@ def second_chance(request):
 def prompt_action(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     if request.user.is_superuser:
-        tasks = request.POST.get("tasks")
-        print(tasks)
+        if request.method == 'POST':
+            tasks = json.loads(request.body)['tasks']
+            if "update_bets" in tasks:
+                update_bets()
+            if "update_promos" in tasks:
+                update_promos()
         return render(request, 'prompt.html')
     return redirect('/')
 
