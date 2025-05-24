@@ -1,7 +1,40 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --header-bg: #f0f0f0;
+    --header-text: #000000;
+    --navbar-bg: #e0e0e0;
+    --navlink-color: #000000;
+    --navlink-hover-bg: #cccccc;
+    --footer-bg: #f0f0f0;
+    --footer-text: #000000;
+    --card-bg: #ffffff;
+    --highlight-color: #4CAF50;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --header-text: #ffffff;
+    --navbar-bg: #333333;
+    --navlink-color: #ffffff;
+    --navlink-hover-bg: #555555;
+    --footer-bg: #1e1e1e;
+    --footer-text: #bbbbbb;
+    --card-bg: #1e1e1e;
+    --highlight-color: #4CAF50;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+}
+
 /* General Page Styling */
 body {
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -17,8 +50,8 @@ body {
 .dashboard-top {
     display: flex;
     justify-content: space-around;
-    background-color: #222;
-    color: white;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -34,7 +67,7 @@ body {
 }
 
 .dashboard-grid button {
-    background-color: #007bff;
+    background-color: var(--button-bg);
     color: white;
     border: none;
     padding: 15px;
@@ -45,18 +78,15 @@ body {
 }
 
 .dashboard-grid button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-bg);
 }
 
 /* Hamburger Menu */
 .hamburger-menu {
-    position: fixed;
-    top: 15px;
-    left: 15px;
+    font-size: 32px;
+    color: var(--navlink-color);
     background: none;
     border: none;
-    font-size: 24px;
-    color: white;
     cursor: pointer;
 }
 
@@ -67,7 +97,7 @@ body {
     top: 0;
     width: 250px;
     height: 100%;
-    background: #333;
+    background: var(--navbar-bg);
     padding-top: 60px;
     transition: 0.3s;
 }
@@ -75,12 +105,12 @@ body {
 .side-menu a {
     display: block;
     padding: 15px;
-    color: white;
+    color: var(--navlink-color);
     text-decoration: none;
 }
 
 .side-menu a:hover {
-    background-color: #555;
+    background-color: var(--navlink-hover-bg);
 }
 
 /* Close Button */
@@ -91,23 +121,13 @@ body {
     background: none;
     border: none;
     font-size: 20px;
-    color: white;
+    color: var(--navlink-color);
     cursor: pointer;
 }
 
 /* Open Side Menu */
 .side-menu.open {
     left: 0;
-}
-
-
-/* Visible & Properly Positioned Hamburger Menu */
-.hamburger-menu {
-    font-size: 32px; /* Make the icon larger */
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
 }
 
 /* Promotions Board */
@@ -127,7 +147,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #1e1e1e;
+    background-color: var(--card-bg);
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
@@ -136,7 +156,7 @@ body {
 /* Sportsbook Name */
 .promo-name {
     font-weight: bold;
-    color: #4CAF50; /* Green for branding */
+    color: var(--highlight-color);
     flex: 1;
 }
 
@@ -148,7 +168,7 @@ body {
 
 /* Promo Button */
 .promo-button {
-    background-color: #007bff;
+    background-color: var(--button-bg);
     color: white;
     border: none;
     padding: 8px 12px;
@@ -158,9 +178,8 @@ body {
 }
 
 .promo-button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-bg);
 }
-
 
 /* Promotions Header */
 .promos-header {
@@ -168,7 +187,13 @@ body {
     font-size: 22px;
     font-weight: bold;
     margin-bottom: 15px;
-    color: white;
-    border-bottom: 2px solid #007bff;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--button-bg);
     padding-bottom: 5px;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    background-color: var(--navbar-bg);
+    color: var(--navlink-color);
 }

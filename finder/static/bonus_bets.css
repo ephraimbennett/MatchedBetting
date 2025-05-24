@@ -1,11 +1,10 @@
-/* General Styling */
 .bonus-bets-container {
     width: 80%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: var(--card-bg);
     border-radius: 10px;
-    color: white;
+    color: var(--text-color);
 }
 
 /* Input Section */
@@ -22,16 +21,16 @@
 
 .bonus-bet-input input {
     padding: 8px;
-    border: 1px solid #444;
+    border: 1px solid var(--navlink-hover-bg);
     border-radius: 5px;
-    background-color: #333;
-    color: white;
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
     width: 100px;
     text-align: center;
 }
 
 .bonus-bet-input button {
-    background-color: #007bff;
+    background-color: var(--button-bg);
     color: white;
     padding: 8px 12px;
     border: none;
@@ -41,7 +40,7 @@
 }
 
 .bonus-bet-input button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-bg);
 }
 
 /* Table */
@@ -50,31 +49,32 @@
     border-collapse: collapse;
 }
 
-.bonus-bets-table th, 
+.bonus-bets-table th,
 .bonus-bets-table td {
-    padding: 13px;  /* Increased padding for more row height */
-    border-bottom: 1px solid #444;
+    padding: 13px;
+    border-bottom: 1px solid var(--navlink-hover-bg);
     text-align: left;
-    white-space: normal; /* Allow text wrapping */
-    word-break: break-word; /* Ensure long text wraps */
+    white-space: normal;
+    word-break: break-word;
 }
 
 .bonus-bets-table th {
-    background-color: #222;
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
 }
 
 .bonus-bets-table tr:nth-child(even) {
-    background-color: #2a2a2a;
+    background-color: var(--footer-bg);
 }
 
 .bonus-bets-table tr:hover {
-    background-color: #333;
+    background-color: var(--navlink-hover-bg);
 }
 
 /* Hedge Bet Styling */
 .hedge-bet-container {
     display: flex;
-    flex-direction: column; /* Stack bookie & amount on separate lines */
+    flex-direction: column;
 }
 
 .hedge-bet-container span {
@@ -84,35 +84,34 @@
 /* Profit Column Styling */
 .bonus-bets-table td:last-child {
     font-weight: bold;
-    color: #4CAF50; /* Green for profit */
+    color: var(--highlight-color);
 }
-
 
 /* Dropdown Styling */
 .bonus-bet-input select {
     padding: 8px;
-    border: 1px solid #444;
+    border: 1px solid var(--navlink-hover-bg);
     border-radius: 5px;
-    background-color: #333;  /* Dark background */
-    color: white;  /* White text */
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
     cursor: pointer;
     font-size: 16px;
-    width: 150px;  /* Adjust width for better appearance */
+    width: 150px;
 }
 
 /* Hover and Focus Effects */
 .bonus-bet-input select:hover,
 .bonus-bet-input select:focus {
-    border-color: #007bff;  /* Highlight border on hover/focus */
+    border-color: var(--button-bg);
     outline: none;
 }
 
-/* Dropdown Arrow Styling (for WebKit Browsers) */
+/* Scrollbar Thumb Styling */
 .bonus-bet-input select::-webkit-scrollbar {
     width: 8px;
 }
 
 .bonus-bet-input select::-webkit-scrollbar-thumb {
-    background-color: #555;
+    background-color: var(--navlink-hover-bg);
     border-radius: 5px;
 }

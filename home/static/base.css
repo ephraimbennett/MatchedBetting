@@ -1,40 +1,60 @@
-/* Dark theme colors */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --header-bg: #f0f0f0;
+    --header-text: #000000;
+    --navbar-bg: #e0e0e0;
+    --navlink-color: #000000;
+    --navlink-hover-bg: #cccccc;
+    --footer-bg: #f0f0f0;
+    --footer-text: #000000;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --header-text: #ffffff;
+    --navbar-bg: #333333;
+    --navlink-color: #ffffff;
+    --navlink-hover-bg: #555555;
+    --footer-bg: #1e1e1e;
+    --footer-text: #bbbbbb;
+}
+
 body {
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-/* Header */
 header {
-    background-color: #1e1e1e;
-    color: white;
+    background-color: var(--header-bg);
+    color: var(--header-text);
     padding: 15px;
     text-align: center;
     font-size: 24px;
 }
 
-/* Navbar */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #333; /* Changed from background */
+    background-color: var(--navbar-bg);
     padding: 10px 20px;
-    position: relative;  /* Helps for alignment debugging */
+    position: relative;
 }
 
-/* Left side (Welcome message) */
 .nav-left {
     flex: 1;
-    color: #bbb;
+    color: var(--footer-text);
     font-size: 16px;
     text-align: left;
 }
 
-/* Center navigation */
 .nav-center {
     position: absolute;
     left: 50%;
@@ -43,32 +63,32 @@ header {
     gap: 20px;
 }
 
-/* Ensure links are properly styled */
 .nav-center a {
-    color: white;
+    color: var(--navlink-color);
     text-decoration: none;
     font-size: 18px;
     padding: 8px 12px;
-    transition-property: background-color; /* Explicit transition properties */
-    transition-duration: 0.3s;
+    transition: background-color 0.3s;
 }
 
 .nav-center a:hover {
-    background-color: #555; /* Changed from background */
+    background-color: var(--navlink-hover-bg);
     border-radius: 5px;
     cursor:pointer;
 }
 
-/* Main content */
 main {
     padding: 20px;
 }
 
-/* Footer */
 footer {
-    background-color: #1e1e1e; /* Changed from background */
+    background-color: var(--footer-bg);
     text-align: center;
     padding: 10px;
     font-size: 14px;
-    color: #bbb;
+    color: var(--footer-text);
+}
+
+#theme-toggle {
+    background-color: var(--navbar-bg);
 }

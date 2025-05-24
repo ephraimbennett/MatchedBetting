@@ -1,7 +1,6 @@
-/* Dashboard container */
 .dashboard-container {
     text-align: center;
-    background-color: #1e1e1e;
+    background-color: var(--header-bg); /* reused for box background */
     padding: 30px;
     border-radius: 10px;
     margin: 50px auto;
@@ -9,19 +8,16 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Dashboard heading */
 .dashboard-container h2 {
-    color: white;
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
-/* Dashboard paragraph */
 .dashboard-container p {
-    color: #bbb;
+    color: var(--footer-text);
     margin-bottom: 20px;
 }
 
-/* Dashboard button */
 .dashboard-btn {
     display: inline-block;
     padding: 10px 20px;
@@ -37,17 +33,15 @@
     background-color: #0056b3;
 }
 
-
-/* Centering the h1 for logged-out users */
 .logged-out-message {
     text-align: center;
     font-size: 24px;
-    color: #e0e0e0;
+    color: var(--text-color);
     font-weight: bold;
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: var(--header-bg);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     line-height: 1.6;
