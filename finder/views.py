@@ -48,7 +48,6 @@ def bonus_bets(request):
 
     bonus_size = request.GET.get('amount')
     if bonus_size is not None:
-        update_bets()
 
         bm = request.GET.get('bookmaker')
         if bm != 'Any':
@@ -67,7 +66,7 @@ def bonus_bets(request):
             formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
             bet.time = formatted_time
 
-
+            print(bet.profit_index)
             bet.profit_index *= float(bonus_size)
             bet.hedge_index *= float(bonus_size)
 
@@ -85,7 +84,6 @@ def second_chance(request):
 
     second_size = request.GET.get('amount')
     if second_size is not None:
-        #update_bets()
 
         # grab the S and r from the client.
         S = float(second_size)
@@ -154,7 +152,7 @@ def profit_boost(request):
     if bonus_size is not None:
         bm = request.GET.get('bookmaker')
         if bm != 'Any':
-            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
+            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:500]
         else:
             bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
 
@@ -162,6 +160,7 @@ def profit_boost(request):
         stake_b = float(request.GET.get('amount'))
         boost = float(request.GET.get('boost')) / 100.0 + 1.0
 
+        bet_list = []
         for bet in bets:
             # need to calculate the actual profit and then replace the profit index with this
             odd_h = 100 / abs(bet.hedge_odds)
@@ -181,6 +180,9 @@ def profit_boost(request):
             # Format the datetime object into the desired string
             formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
             bet.time = formatted_time
+            bet_list.append(bet)
+        bet_list.sort(key = lambda bet : bet.profit_index, reverse=True)
+        bet_list = bet_list[:int(request.GET.get('limit'))]
         vars = {'bets' : bets, 'settings': user_settings, 'bookmakers': bookmakers}
 
         return render(request, 'profit_boost.html', vars)
