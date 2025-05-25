@@ -3,9 +3,11 @@ import json
 
 def calculate_all(data):
     bets = find_best_bets(data)
+    print("starting?")
 
     bonus_bets = bonus_bet_calc(bets)
     second_bets = second_chance_calc(bets)
+    print("found second bets")
     profit_bets = profit_boost_calc(bets)
 
     return bonus_bets, second_bets, profit_bets

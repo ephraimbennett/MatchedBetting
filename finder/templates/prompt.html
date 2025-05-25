@@ -14,12 +14,11 @@
         // Data to send
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').getAttribute('value');
 
-
         
         var count = 1;
         // Post every 5 minutes to update bets, every 25 to update promos.
-        setInterval(() => {
-            var tasks = ['update_promos']
+        setTimeout(() => {
+            var tasks = ['update_bets']
             if (count % 5 == 0) {
                 count = 1;
                 tasks.push('update_promos');
@@ -47,7 +46,7 @@
                 console.error("Error:", error);
             });
             console.log("um is this happening.");
-        }, 5 * 1000); // 1 minutes
+        }, 1 * 1000); // 1 minutes
 
     </script>
 

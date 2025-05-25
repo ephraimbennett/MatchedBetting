@@ -8,7 +8,7 @@
     --navlink-hover-bg: #cccccc;
     --footer-bg: #f0f0f0;
     --footer-text: #000000;
-    --card-bg: #ffffff;
+    --card-bg: #c7c3c3;
     --highlight-color: #4CAF50;
     --button-bg: #007bff;
     --button-hover-bg: #0056b3;
@@ -196,4 +196,5 @@ body {
 #theme-toggle {
     background-color: var(--navbar-bg);
     color: var(--navlink-color);
+    height: 100%;
 }
