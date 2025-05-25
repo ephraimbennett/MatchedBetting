@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Settings, BonusBet, SecondBet, BookMaker, Promo
-from .services import update_bets, update_promos
+from .services import update_bets, update_promos, update_states
 from django.utils import timezone
 from datetime import datetime, timedelta
 import pytz
@@ -17,13 +17,15 @@ def dashboard(request):
     
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     
+    pot_value = 2000 if user_settings.state is None else user_settings.state.value
+    
     #update_promos()
     promos = Promo.objects.all()
     print("hhheey")
 
 
     return render(request, "dashboard.html", {
-        'potential_profit': 2400,
+        'potential_profit': pot_value,
         'settings': user_settings,
         'promos': promos
     })
@@ -44,6 +46,7 @@ def settings(request):
 @login_required
 def bonus_bets(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
+    pot_value = 2000 if user_settings.state is None else user_settings.state.value
     bookmakers = BookMaker.objects.all()
 
     bonus_size = request.GET.get('amount')
@@ -71,16 +74,26 @@ def bonus_bets(request):
             bet.hedge_index *= float(bonus_size)
 
         
-        vars = {'bets' : bets, 'settings': user_settings, 'bookmakers': bookmakers}
+        vars = {
+            'potential_profit': pot_value,
+            'bets' : bets, 
+            'settings': user_settings, 
+            'bookmakers': bookmakers
+            }
 
         return render(request, 'bonus_bets.html', vars)
 
-    return render(request, 'bonus_bets.html', {'settings': user_settings, 'bookmakers': bookmakers})
+    return render(request, 'bonus_bets.html', {
+        'potential_profit': pot_value,
+        'settings': user_settings, 
+        'bookmakers': bookmakers
+    })
 
 @login_required
 def second_chance(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     bookmakers = BookMaker.objects.all()
+    pot_value = 2000 if user_settings.state is None else user_settings.state.value
 
     second_size = request.GET.get('amount')
     if second_size is not None:
@@ -124,10 +137,19 @@ def second_chance(request):
 
         
 
-        vars = {'bets' : bet_list, 'settings': user_settings, 'bookmakers': bookmakers}
+        vars = {
+            'potential_profit': pot_value,
+            'bets' : bet_list, 
+            'settings': user_settings, 
+            'bookmakers': bookmakers
+        }
         return render(request, 'second_chance.html', vars)
 
-    return render(request, 'second_chance.html', {'settings': user_settings, 'bookmakers': bookmakers})
+    return render(request, 'second_chance.html', {
+        'potential_profit': pot_value,
+        'settings': user_settings, 
+        'bookmakers': bookmakers
+    })
 
 @login_required
 def prompt_action(request):
@@ -146,6 +168,8 @@ def prompt_action(request):
 def profit_boost(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     bookmakers = BookMaker.objects.all()
+    pot_value = 2000 if user_settings.state is None else user_settings.state.value
+    
 
     bonus_size = request.GET.get('amount')
 
@@ -183,10 +207,19 @@ def profit_boost(request):
             bet_list.append(bet)
         bet_list.sort(key = lambda bet : bet.profit_index, reverse=True)
         bet_list = bet_list[:int(request.GET.get('limit'))]
-        vars = {'bets' : bets, 'settings': user_settings, 'bookmakers': bookmakers}
+        vars = {
+            'potential_profit': pot_value,
+            'bets' : bets, 
+            'settings': user_settings, 
+            'bookmakers': bookmakers
+        }
 
         return render(request, 'profit_boost.html', vars)
             
 
 
-    return render(request, 'profit_boost.html', {'settings': user_settings, 'bookmakers': bookmakers})
+    return render(request, 'profit_boost.html', {
+        'potential_profit': pot_value,
+        'settings': user_settings, 
+        'bookmakers': bookmakers
+    })

@@ -1,4 +1,4 @@
-from .models import BonusBet, SecondBet, BookMaker, Promo, ProfitBet
+from .models import BonusBet, SecondBet, BookMaker, Promo, ProfitBet, State
 from .calculator import calculate_all
 from datetime import timezone
 
@@ -7,6 +7,7 @@ from datetime import timezone
 from django.utils.dateparse import parse_datetime
 
 from .scrape.sportsbookreview import scrape_sportsbookreview
+from .scrape.states import scrape_states
 
 import requests
 
@@ -107,6 +108,17 @@ def update_promos():
             model.url = promo[3]
         else:
             model.url = '/'
+        model.save()
+
+def update_states():
+    # clear existing states
+    State.objects.all().delete()
+
+    url = "https://about.darkhorseodds.com/guides/state-guide-overview"
+    states = scrape_states(url)
+
+    for state in states:
+        model = State(code=state['abbrev'], name=state['name'], value=state['value'])
         model.save()
 
 def print_smg():

@@ -26,7 +26,7 @@ input[type="email"], input[type="password"] {
     color: #333; /* Dark text for visibility */
 }
 
-button {
+.styled-button {
     padding: 10px 15px;
     color: white;
     background-color: #007bff;
@@ -35,6 +35,6 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.styled-button:hover {
     background-color: #0056b3;
 }

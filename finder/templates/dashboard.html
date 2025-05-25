@@ -6,6 +6,7 @@
     <title>Finder Dashboard</title>
     
     {% load static %}
+    {% load humanize %}
     <link rel="stylesheet" href="{% static 'dashboard.css' %}">
     <script src="{% static 'dashboard.js' %}" defer></script>
 
@@ -34,7 +35,7 @@
             <!-- Hamburger Menu Button -->
             <button class="hamburger-menu" onclick="toggleMenu()">☰</button>
             <p>Email: <span id="user-email">{{ request.user.email }}</span></p>
-            <p>Potential Profit: $<span id="potential-profit">{{ potential_profit }}</span></p>
+            <p>Potential Profit: $<span id="potential-profit">{{ potential_profit|intcomma }}</span></p>
             <p>State: <span id="user-state"> {{settings.state.name}}</span></p>
             <button onclick="toggleTheme();" id="theme-toggle">🌙</button>
         </div>

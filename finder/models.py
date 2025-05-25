@@ -3,19 +3,6 @@ from home.models import Member
 
 # Create your models here.
 
-
-class State(models.Model):
-    code = models.CharField(max_length=2, unique=True)
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-    
-class Settings(models.Model):
-    user = models.OneToOneField(Member, on_delete=models.CASCADE) # The link to member
-    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
-    timezone = models.CharField(default="Etc/GMT+6", max_length=50)
-
 class BonusBet(models.Model):
     title = models.TextField(null=True)
     market = models.TextField(null=True)
@@ -80,3 +67,18 @@ class Promo(models.Model):
     description = models.TextField(null=True)
     code = models.CharField(max_length=50, null=True)
     url = models.CharField(max_length=250, null=True)
+
+class State(models.Model):
+    code = models.CharField(max_length=2, unique=True)
+    name = models.CharField(max_length=100)
+
+    value = models.IntegerField(null=True)
+    bookmakers = models.ManyToManyField(BookMaker)
+
+    def __str__(self):
+        return self.name
+
+class Settings(models.Model):
+    user = models.OneToOneField(Member, on_delete=models.CASCADE) # The link to member
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
+    timezone = models.CharField(default="Etc/GMT+6", max_length=50)
