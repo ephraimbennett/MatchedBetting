@@ -35,8 +35,57 @@ header {
     background-color: var(--header-bg);
     color: var(--header-text);
     padding: 15px;
+    position: relative;
+    height: 200px;
+}
+
+.header-side {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 1;
+}
+
+.header-side.left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header-side.right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     text-align: center;
-    font-size: 24px;
+}
+
+.header-logo {
+    width: 240px;
+    height: 160px;
+}
+
+.header-icon {
+    width: 180px;
+    height: 120px;
+}
+
+.site-title {
+    font-size: clamp(20px, 4vw, 32px);
+    color: var(--header-text);
+    margin: 0;
 }
 
 .navbar {
@@ -63,7 +112,8 @@ header {
     gap: 20px;
 }
 
-.nav-center a {
+.nav-center a,
+.nav-left a {
     color: var(--navlink-color);
     text-decoration: none;
     font-size: 18px;
@@ -71,10 +121,11 @@ header {
     transition: background-color 0.3s;
 }
 
-.nav-center a:hover {
+.nav-center a:hover,
+.nav-left a:hover {
     background-color: var(--navlink-hover-bg);
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 main {
@@ -91,4 +142,15 @@ footer {
 
 #theme-toggle {
     background-color: var(--navbar-bg);
+}
+
+.site-logo img {
+    width: clamp(80px, 15vw, 180px);
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.title {
+    color:green;
 }

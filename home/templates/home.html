@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+<main class="page-main">
 {% if request.user.is_authenticated %}
 
 <div class="dashboard-container">
@@ -16,8 +17,15 @@
 </div>
 
 {% else %}
-<h1 class="logged-out-message">Best value matched betting. Find the best odds to optimize profits from Bonus Bets, Site Credit, Second Chance,
-    and profit boost
+<h1 class="logged-out-message">Best value matched betting.
 </h1>
+
+<div class="dashboard-container">
+    <h3>Get Started Now!    </h2>
+    <a href="{% url 'login' %}" class="dashboard-btn">Login</a>
+    <a href="{% url 'register' %}" class="dashboard-btn">Register</a>
+</div>
+
 {% endif %}
+</main>
 {% endblock %}

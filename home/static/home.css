@@ -15,7 +15,7 @@
 
 .dashboard-container p {
     color: var(--footer-text);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .dashboard-btn {
@@ -45,4 +45,12 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     line-height: 1.6;
+}
+.page-main {
+    background-image: url('/static/suit3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Ensures full height */
+    padding: 40px 20px;
 }

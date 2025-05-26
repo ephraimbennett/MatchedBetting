@@ -60,6 +60,7 @@ state_to_abbrev = {
 def scrape_states(url):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)  # Use `False` to see browser UI
+        context = browser.new_context()
         page = browser.new_page()
         page.goto(url)
         
@@ -79,4 +80,4 @@ def scrape_states(url):
 
             states.append({'name': name, 'abbrev': state_to_abbrev[name], "value": value})
         return states
-            
+    
