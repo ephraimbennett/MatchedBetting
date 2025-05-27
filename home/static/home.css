@@ -4,7 +4,7 @@
     padding: 30px;
     border-radius: 10px;
     margin: 50px auto;
-    max-width: 400px;
+    max-width: 300px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -38,7 +38,7 @@
     font-size: 24px;
     color: var(--text-color);
     font-weight: bold;
-    max-width: 600px;
+    max-width: 400px;
     margin: 50px auto;
     padding: 20px;
     background-color: var(--header-bg);

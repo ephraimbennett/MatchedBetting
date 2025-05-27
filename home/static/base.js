@@ -57,5 +57,8 @@ function toggleTheme() {
 window.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('dark-mode');
+    } else {
+        var btn = document.getElementById("theme-toggle");
+        btn.textContent = '☀️';
     }
 });

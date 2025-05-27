@@ -44,6 +44,12 @@ def settings(request):
     return render(request, 'settings.html', {'form' : form})
 
 @login_required
+def coming_soon(request):
+    user_settings, created = Settings.objects.get_or_create(user=request.user)
+    pot_value = 2000 if user_settings.state is None else user_settings.state.value
+    return render(request, "coming_soon.html", {'potential_profit': pot_value, 'settings': user_settings})
+
+@login_required
 def bonus_bets(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     pot_value = 2000 if user_settings.state is None else user_settings.state.value
@@ -209,7 +215,7 @@ def profit_boost(request):
         bet_list = bet_list[:int(request.GET.get('limit'))]
         vars = {
             'potential_profit': pot_value,
-            'bets' : bets, 
+            'bets' : bet_list, 
             'settings': user_settings, 
             'bookmakers': bookmakers
         }

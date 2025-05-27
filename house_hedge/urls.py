@@ -20,6 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('home.urls')),
     path('', include('finder.urls')),
+    path('', include('guides.urls')),
     path('admin/', admin.site.urls),
 ]
 handler404 = 'home.views.handler404'

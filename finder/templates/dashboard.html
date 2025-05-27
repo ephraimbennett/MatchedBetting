@@ -8,6 +8,7 @@
     {% load static %}
     {% load humanize %}
     <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
     <script src="{% static 'dashboard.js' %}" defer></script>
 
     {% block extra_style %}
@@ -23,10 +24,10 @@
         <a href="/dashboard">Dashboard</a>
         <a href="/profit_boost">Profit Boost</a>
         <a href="/bonus_bets">Bonus Bet</a>
-        <a href="/">Site Credit</a>
+        <a href="/coming_soon">Site Credit</a>
         <a href="/second_chance">Second Chance Bet</a>
-        <a href="/">Qualifying Bet</a>
-        <a href="/">Arbitrage</a>
+        <a href="/coming_soon">Qualifying Bet</a>
+        <a href="/coming_soon">Arbitrage</a>
     </div>
 
     <!-- Main Dashboard -->
@@ -44,10 +45,10 @@
         <div class="dashboard-grid">
             <button onclick="window.location.href='/profit_boost'">Profit Boost</button>
             <button onclick="window.location.href='/bonus_bets'">Bonus Bet</button>
-            <button onclick="window.location.href='/'">Site Credit</button>
+            <button onclick="window.location.href='/coming_soon'">Site Credit</button>
             <button onclick="window.location.href='/second_chance'">Second Chance Bet</button>
-            <button onclick="window.location.href='/'">Qualifying Bet</button>
-            <button onclick="window.location.href='/'">Arbitrage</button>
+            <button onclick="window.location.href='/coming_soon'">Qualifying Bet</button>
+            <button onclick="window.location.href='/coming_soon'">Arbitrage</button>
         </div>
 
         <div class="promos-board">

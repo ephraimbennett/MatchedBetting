@@ -7,5 +7,6 @@ urlpatterns = [
     path('bonus_bets/', views.bonus_bets, name='bonus_bets'),
     path('second_chance', views.second_chance, name='second_chance'),
     path('profit_boost', views.profit_boost, name='profit_boost'),
-    path('prompt/', views.prompt_action, name='prompt')
+    path('prompt/', views.prompt_action, name='prompt'),
+    path('coming_soon/', views.coming_soon, name='coming_soon')
 ]

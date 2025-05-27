@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Guides - Matched Betting{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'guides_list.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
+    <script src="{% static 'base.js' %}" defer></script>
+    {% block extra_style %}{% endblock %}
+</head>
+<body>
+
+    <!-- Guides Navbar -->
+    <nav class="guides-navbar">
+        <div class="nav-left">
+            <a href="/">Home</a>
+            {% if not request.user.is_authenticated %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            {% endif %}
+            <a href="/forums">Forums</a>
+            <a href="/guides">Guides</a>
+        </div>
+        <div class="nav-right">
+            <button onclick="toggleTheme();" id="theme-toggle">🌙</button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="guides-main">
+        {% block content %}
+        <h1 class="guides-header">Guides</h1>
+
+        <form class="search-bar" action="/guides/search/" method="get">
+            <input type="text" name="q" placeholder="Search for a guide..." />
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="guides-list">
+            <a href="/guides/what-is-matched-betting">What is Matched Betting?</a>
+            <a href="/guides/how-to-use-free-bets">How to Use Free Bets Effectively</a>
+            <a href="/guides/arbitrage-vs-matched">Arbitrage vs Matched Betting</a>
+            <a href="/guides/common-mistakes">Common Mistakes to Avoid</a>
+            <a href="/guides/advanced-strategies">Advanced Strategies</a>
+        </div>
+        {% endblock %}
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends "dashboard.html" %}
+
+{% block main %}
+<div class="coming-soon-container">
+    <h1 class="coming-soon-header">🚧 Coming Soon</h1>
+    <p class="coming-soon-message">This feature is under construction. Stay tuned for updates!</p>
+</div>
+
+<style>
+/* Coming Soon Page Styles */
+.coming-soon-container {
+    margin-top: 60px;
+    text-align: center;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coming-soon-header {
+    font-size: 32px;
+    color: var(--highlight-color);
+    margin-bottom: 20px;
+}
+
+.coming-soon-message {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+</style>
+{% endblock %}

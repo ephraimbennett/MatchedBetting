@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'home',
     'finder',
     'django_celery_beat',
+    'guides'
 ]
 
 MIDDLEWARE = [
