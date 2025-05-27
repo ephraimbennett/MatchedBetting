@@ -1,12 +1,12 @@
 :root {
-    --bg-color: #ffffff;
+    --bg-color: #6c8576;
     --text-color: #000000;
-    --header-bg: #f0f0f0;
+    --header-bg: #FFFFFF;
     --header-text: #000000;
     --navbar-bg: #e0e0e0;
     --navlink-color: #000000;
     --navlink-hover-bg: #cccccc;
-    --footer-bg: #f0f0f0;
+    --footer-bg: #71aa88;
     --footer-text: #000000;
 }
 
@@ -73,8 +73,8 @@ header {
 }
 
 .header-logo {
-    width: 240px;
-    height: 160px;
+    width: 110px;
+    height: 110px;
 }
 
 .header-icon {
@@ -153,4 +153,5 @@ footer {
 
 .title {
     color:green;
+    font-size: 100;
 }

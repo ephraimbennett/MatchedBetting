@@ -5,5 +5,5 @@ from django.shortcuts import render
 def guides_list(request):
     return render(request, 'guides_list.html')
 
-def guides_detail(request):
+def guides_detail(request, slug):
     return render(request,  'guides_detail.html')
