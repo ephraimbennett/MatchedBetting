@@ -1,55 +1,41 @@
-{% extends "base.html" %}
+{% extends "new.html" %}
 
-{% load static %}
-
-{% block title %} - Login {% endblock %}
-
-{% block extra_style %}
-<link rel="stylesheet" href="{% static 'login.css' %}">
-{% endblock %}
-
-{% block content %}
-<script src="{% static 'login.js' %}"></script>
+{% block main %}
 <script src="https://accounts.google.com/gsi/client" async></script>
-<div class="login-container">
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div class="form-group">
-            <button class="styled-button" type="submit">Send</button>
-        </div>
+  <section class="form-container">
+    <h2>Login to Your Account</h2>
+    <form method="POST" action="{% url 'login' %}" class="signup-form">
+      {% csrf_token %}
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" required>
 
-        <!-- Display error message if authentication fails -->
-        {% if error %}
-            <div class="error-message" style="color: red;">
-                {{ error }}
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+
+      <button type="submit" class="cta-btn">Login</button>
+      <!-- Display errors -->
+        {% if errors %}
+            <div class="errors">
+                {{ errors }}
             </div>
         {% endif %}
+        <div class="google-login-section">
+            <div id="g_id_onload"
+                data-client_id="974392355080-8kti4edol3huoto65quqj4co7vfbsreh.apps.googleusercontent.comcom"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-login_uri="https://hedgeapp-web-974392355080.us-central1.run.app/auth-receiver/"
+                data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                data-type="standard"
+                data-shape="rectangular"
+                data-theme="filled_white"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left">
+            </div>
+        </div>
     </form>
-    <div class="google-login-section">
-        <div id="g_id_onload"
-            data-client_id="974392355080-8kti4edol3huoto65quqj4co7vfbsreh.apps.googleusercontent.com"
-            data-context="signin"
-            data-ux_mode="popup"
-            data-login_uri="https://hedgeapp-web-974392355080.us-central1.run.app/auth-receiver/"
-            data-auto_prompt="false">
-        </div>
-        <div class="g_id_signin"
-            data-type="standard"
-            data-shape="rectangular"
-            data-theme="filled_black"
-            data-text="signin_with"
-            data-size="large"
-            data-logo_alignment="left">
-        </div>
-    </div>
-
-</div>
+  </section>
 {% endblock %}

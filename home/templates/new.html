@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>HedgeR - Take the promo, beat the house</title>
+    <link rel="stylesheet" href="{% static 'new.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
+</head>
+
+<body>
+    <button class="theme-toggle-btn" id="themeToggle">Toggle Theme</button>
+    <script src="{% static 'new.js' %}"></script>
+  <header class="navbar">
+    <div class="navbar-left">
+      <h1 class="logo">HedgeR</h1>
+    </div>
+    <div class="navbar-right">
+    
+    {% if request.user.is_authenticated %}
+        <span class="user-info"><b>Welcome back, {{ request.user.email }}</b></span>
+        <button class="nav-btn" onclick="logout()">Logout</button>
+    {% else %}
+      <button class="nav-btn" onclick="window.location.href='/login'">Login</button>
+      <button class="nav-btn" onclick="window.location.href='/register'">Sign Up</button>
+    {% endif %}
+      <!-- Future nav buttons here -->
+      <button class="nav-btn" onclick="window.location.href='/guides'">Guides</button>
+      <button class="nav-btn" onclick="window.location.href='/'">Home</button>   
+    </div>
+  </header>
+
+  {% block main %}
+  <main class="landing-container">
+    <section class="hero">
+      <div class="hero-text">
+        <h2 class="slogan">Take the promo, beat the house.</h2>
+        <p class="subtext">Maximize your earnings with our matched betting algorithm. Hedge smarter, not harder.</p>
+        {% if request.user.is_authenticated %}
+        <button class="cta-btn" onclick="window.location.href='/dashboard'">Head to Dashboard</button>
+        {% else %}
+        <button class="cta-btn" onclick="window.location.href='/register'">Get Started</button>
+        {% endif %}
+      </div>
+      <div class="hero-image">
+        <!-- Insert main promotional image here -->
+        <img src="{% static 'images/hero.png' %}"></img> 
+      </div>
+    </section>
+
+    <section class="features">
+      <h3>How HedgeR Works</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <!-- Insert icon/image here -->
+          <h4>Find the Edge</h4>
+          <p>Our algorithm scans promotions and lines to uncover profitable bet opportunities.</p>
+        </div>
+        <div class="feature-item">
+          <!-- Insert icon/image here -->
+          <h4>Place Smart Bets</h4>
+          <p>Get step-by-step instructions to ensure you're never gambling, just profiting.</p>
+        </div>
+        <div class="feature-item">
+          <!-- Insert icon/image here -->
+          <h4>Track Your Profits</h4>
+          <p>Monitor your matched betting performance with an intuitive dashboard.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="image-placeholder">
+      <!-- Large image or infographic about matched betting -->
+    </section>
+
+    {% endblock %}
+
+    <footer class="footer">
+      <p>&copy; 2025 HedgeR. All rights reserved.</p>
+    </footer>
+  </main>
+</body>
+
+</html>

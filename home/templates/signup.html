@@ -1,0 +1,47 @@
+{% extends "new.html" %}
+
+{% block main %}
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <section class="form-container">
+    <h2>Create an Account</h2>
+    <form method="POST" action="{% url 'register' %}" class="signup-form">
+      {% csrf_token %}
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="password1">Password</label>
+      <input type="password" name="password1" id="password1" required>
+
+      <label for="password2">Confirm Password</label>
+      <input type="password" name="password2" id="password2" required>
+
+      <button type="submit" class="cta-btn">Sign Up</button>
+
+      <!-- Display errors -->
+    {% if errors %}
+        <div class="errors">
+            {{ errors }}
+        </div>
+    {% endif %}
+    <div class="google-login-section">
+        <div id="g_id_onload"
+            data-client_id="974392355080-8kti4edol3huoto65quqj4co7vfbsreh.apps.googleusercontent.comcom"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-login_uri="https://hedgeapp-web-974392355080.us-central1.run.app/auth-receiver/"
+            data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="filled_white"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left">
+        </div>
+    </div>
+    </form>
+    
+    </div>
+  </section>
+{% endblock %}

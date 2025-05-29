@@ -48,14 +48,14 @@ header {
 
 .header-side.left {
     position: absolute;
-    left: 15px;
+    left: 60px;
     top: 50%;
     transform: translateY(-50%);
 }
 
 .header-side.right {
     position: absolute;
-    right: 15px;
+    right: 60px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -151,7 +151,12 @@ footer {
     display: block;
 }
 
+body {
+    font-family: 'Open-Sans';
+}
+
 .title {
-    color:green;
-    font-size: 100;
+    color: --header-text;
+    font-size: 100px;
+    font-family: 'Open-Sans';
 }

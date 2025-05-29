@@ -17,10 +17,11 @@ import os
 from .forms import MemberCreationForm
 
 def home(request):
-    return render(request, "home.html")
+    return render(request, "new.html")
 
 def login_user(request):
     if request.method == 'POST':
+        print("huh")
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
@@ -53,8 +54,8 @@ def register(request):
         else:
             errors = {}
             print(form.errors.as_text())
-            return render(request, 'register.html', {'errors': form.errors.as_text()})
-    return render(request, "register.html")
+            return render(request, 'signup.html', {'errors': form.errors.as_text()})
+    return render(request, "signup.html")
 
 def handler404(request, error):
     print("hah")
