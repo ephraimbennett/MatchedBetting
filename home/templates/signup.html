@@ -7,7 +7,7 @@
     <form method="POST" action="{% url 'register' %}" class="signup-form">
       {% csrf_token %}
       <label for="email">Email</label>
-      <input type="email" name="email" id="email" required>
+      <input type="email" name="email" id="email" value="{{ email }}"required>
 
       <label for="password1">Password</label>
       <input type="password" name="password1" id="password1" required>

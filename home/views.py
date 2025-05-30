@@ -21,7 +21,6 @@ def home(request):
 
 def login_user(request):
     if request.method == 'POST':
-        print("huh")
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
@@ -29,7 +28,10 @@ def login_user(request):
             login(request, user)
             return redirect('/')
         else:
-            return render(request, "login.html", {'error' : "Invalid email or password."})
+            return render(request, "login.html", {
+                'errors' : "Invalid email or password.",
+                'email': email
+            })
     else:
         template = loader.get_template('login.html')
         return render(request, "login.html")
@@ -54,7 +56,10 @@ def register(request):
         else:
             errors = {}
             print(form.errors.as_text())
-            return render(request, 'signup.html', {'errors': form.errors.as_text()})
+            return render(request, 'signup.html', {
+                'errors': form.errors.as_text(),
+                'email': request.POST.get('email')
+            })
     return render(request, "signup.html")
 
 def handler404(request, error):
