@@ -59,9 +59,6 @@ class ProfitBet(models.Model):
 
     profit_index = models.FloatField(null=True)
 
-class BookMaker(models.Model):
-    title = models.TextField()
-
 class Promo(models.Model):
     bookmaker = models.TextField()
     description = models.TextField(null=True)
@@ -73,7 +70,6 @@ class State(models.Model):
     name = models.CharField(max_length=100)
 
     value = models.IntegerField(null=True)
-    bookmakers = models.ManyToManyField(BookMaker)
 
     def __str__(self):
         return self.name
@@ -82,3 +78,7 @@ class Settings(models.Model):
     user = models.OneToOneField(Member, on_delete=models.CASCADE) # The link to member
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True, blank=True)
     timezone = models.CharField(default="Etc/GMT+6", max_length=50)
+
+class BookMaker(models.Model):
+    title = models.TextField()
+    states = models.ManyToManyField(State)

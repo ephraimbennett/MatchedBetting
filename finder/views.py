@@ -14,6 +14,10 @@ from .forms import SettingsForm
 
 @login_required
 def dashboard(request):
+
+    bm = BookMaker.objects.get(title="BetRivers")
+    print(bm.states.all())
+
     
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     
@@ -75,7 +79,6 @@ def bonus_bets(request):
             formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
             bet.time = formatted_time
 
-            print(bet.profit_index)
             bet.profit_index *= float(bonus_size)
             bet.hedge_index *= float(bonus_size)
 
@@ -114,8 +117,6 @@ def second_chance(request):
         bets = SecondBet.objects.all().filter(bonus_bet__contains=bm).order_by("-profit_index")[:500]
         bet_list = []
         for bet in bets:
-            print(bet.profit_index)
-
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
             local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))

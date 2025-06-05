@@ -15,7 +15,6 @@ def update_bets():
     # clear existing tables
     SecondBet.objects.all().delete()
     BonusBet.objects.all().delete()
-    BookMaker.objects.all().delete()
     ProfitBet.objects.all().delete()
 
     # get the data, will change later obviously

@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block main %}
+<script src="{% static 'second_chance.js' %}"></script>
 <div class="bonus-bets-container">
     <!-- Bonus Bet Input Section -->
     <div class="bonus-bet-input">
@@ -66,6 +67,17 @@
         </table>
     </div>
 </div>
+<div id="explain-modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="close-modal" class="close">&times;</span>
+        <h3>Bet Explanation</h3>
+        <div id="modal-body">
+            <!-- Filled dynamically -->
+        </div>
+    </div>
+</div>
+<button id="explain-btn" disabled class="explain-button">Explain This</button>
+
 
 <!-- JavaScript for handling the form submission -->
 <script>
