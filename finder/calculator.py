@@ -23,16 +23,21 @@ def find_best_bets(data):
         p_name = m_name = ''
         largest_minus = -99999
         # check to see if there are even any bookmakers
-        if len(event['bookmakers']) == 0:
+        if not isinstance(event, dict):
             continue
 
+        if len(event['bookmakers']) == 0:
+            print("this happens")
+            continue
+        
+        
+        skip = False
         # now, check each bookmaker
         for bookie in event['bookmakers']:
+            if len(bookie['markets'][0]['outcomes']) > 2:
+                skip = True
+                continue
             for outcome in bookie['markets'][0]['outcomes']:
-                # eliminate draws from the outcomes
-                if outcome['name'].lower() == 'draw':
-                    continue
-
                 if outcome['price'] > 0: # underdog
                     if outcome['price'] > biggest_plus:
                         biggest_plus = outcome['price']
@@ -43,6 +48,8 @@ def find_best_bets(data):
                         largest_minus = outcome['price']
                         hedge_bookie = bookie['title']
                         m_name = outcome['name']
+        if skip:
+            continue
         to_append = {'bonus_bet': [bet_bookie, biggest_plus, p_name], 'hedge_bet': [hedge_bookie, largest_minus, m_name]}
         to_append['title'] = event["away_team"] + " @ " + event["home_team"]
         to_append['time'] = event['commence_time']

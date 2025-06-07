@@ -15,8 +15,8 @@ from .forms import SettingsForm
 @login_required
 def dashboard(request):
 
-    bm = BookMaker.objects.get(title="BetRivers")
-    print(bm.states.all())
+    #bm = BookMaker.objects.get(title="BetRivers")
+    #print(bm.states.all())
 
     
     user_settings, created = Settings.objects.get_or_create(user=request.user)
@@ -61,7 +61,7 @@ def bonus_bets(request):
 
     bonus_size = request.GET.get('amount')
     if bonus_size is not None:
-
+        #update_bets()
         bm = request.GET.get('bookmaker')
         if bm != 'Any':
             bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]

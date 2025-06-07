@@ -1,6 +1,7 @@
 from .models import BonusBet, SecondBet, BookMaker, Promo, ProfitBet, State
 from .calculator import calculate_all
-from datetime import timezone
+from datetime import datetime, timezone, timedelta
+import json
 
 
 
@@ -18,26 +19,55 @@ def update_bets():
     ProfitBet.objects.all().delete()
 
     # get the data, will change later obviously
-    key_api = "23e42a8dbf01cd559ff15daf7fbe062f"
+    key_api = "1fcbe0cddc5a8bbf56e301cb2a949d4a"
     url_sports = f"https://api.the-odds-api.com/v4/sports?apiKey={key_api}"
+    domain = "https://api.the-odds-api.com/v4/sports/"
     response = requests.get(url=url_sports)
     sports_names = response.json()
     keys = []
 
+    current_date_iso = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    seven_days_later = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=7)
+    seven_days_later_iso = seven_days_later.strftime('%Y-%m-%dT%H:%M:%SZ')
+
     for item in sports_names:
         keys.append(item['key'])
 
+    sports = []
+    for key in keys:
+        url = f"{domain}{key}/events"
+        response = requests.get(url, params={
+            'sport': key,
+            'apiKey': key_api,
+            'commenceTimeFrom': current_date_iso,
+            'commenceTimeTo': seven_days_later_iso
+        })
+        if len(response.json()) > 0:
+            sports.append(key)
+
     # get main lines
-    domain = "https://api.the-odds-api.com/v4/sports/"
-    keys =  ["basketball_nba", "baseball_ncaa", "basketball_ncaab", "basketball_wncaab", "boxing_boxing",
-             "icehockey_nhl", "baseball_mlb", "lacrosse_ncaa", "mma_mixed_martial_arts"]
-    markets = ["h2h", "totals", "spreads"]
+    
+    markets = "h2h,spreads,totals"
+    bookmakers = "fanduel,betmgm,betrivers,betus,betrivers,ballybet,draftkings,espnbet,hardrockbet"
+    
+
     data = []
-    for market in markets:
-        for key in keys:
-            url_odds = f"{domain}{key}/odds?regions=us&oddsFormat=american&apiKey={key_api}&markets={market}"
-            response = requests.get(url=url_odds)
-            data.extend(response.json())
+    for key in sports:
+        url = f"{domain}{key}/odds"
+        response = requests.get(url, params={
+            'regions': 'us',
+            'oddsFormat': 'american',
+            'apiKey': key_api,
+            'markets': markets,
+            'bookmakers': bookmakers,
+            'commenceTimeFrom': current_date_iso,
+            'commenceTimeTo': seven_days_later_iso
+        })
+
+        data.extend(response.json())
+    
+    print(json.dumps(data))
+    
     bets, second_bets, profit_bets = calculate_all(data)
 
     # have a set of the names of bookmakers, as we go through the bets, add to this set.
