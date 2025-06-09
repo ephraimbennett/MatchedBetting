@@ -8,6 +8,9 @@
 
 {% block main %}
 <script src="{% static 'profit_boost.js' %}"></script>
+<script id="all-bets-data" type="application/json">
+    {{ bets_json|safe }}
+</script>
 <div class="bonus-bets-container">
     <!-- Bet Input Section -->
     <div class="bonus-bet-input">

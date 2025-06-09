@@ -68,6 +68,8 @@ def bonus_bets(request):
         else:
             bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
         print(len(bets))
+
+        bets_json = []
         for bet in bets:
 
             time_adj = bet.time.replace("Z", "+0000")
@@ -81,11 +83,29 @@ def bonus_bets(request):
 
             bet.profit_index *= float(bonus_size)
             bet.hedge_index *= float(bonus_size)
-
+            bets_json.append(bet)
+        bets_json = json.dumps([
+            {
+                'title': bet.title,
+                'market': bet.market,
+                'time': bet.time,
+                'sport': bet.sport,
+                'bonus_bet': bet.bonus_bet,
+                'bonus_odds': bet.bonus_odds,
+                'bonus_name': bet.bonus_name,
+                'hedge_bet': bet.hedge_bet,
+                'hedge_odds': bet.hedge_odds,
+                'hedge_name': bet.hedge_name,
+                'hedge_index': bet.hedge_index,
+                'profit': bet.profit_index
+            }
+            for bet in bets
+        ])
         
         vars = {
             'potential_profit': pot_value,
-            'bets' : bets, 
+            'bets' : bets,
+            'bets_json': bets_json, 
             'settings': user_settings, 
             'bookmakers': bookmakers
             }
@@ -142,11 +162,28 @@ def second_chance(request):
         bet_list.sort(key = lambda bet : bet.profit_index, reverse=True)
         bet_list = bet_list[:int(request.GET.get('limit'))]
 
-        
+        bets_json = json.dumps([
+            {
+                'title': bet.title,
+                'market': bet.market,
+                'time': bet.time,
+                'sport': bet.sport,
+                'bonus_bet': bet.bonus_bet,
+                'bonus_odds': bet.bonus_odds,
+                'bonus_name': bet.bonus_name,
+                'hedge_bet': bet.hedge_bet,
+                'hedge_odds': bet.hedge_odds,
+                'hedge_name': bet.hedge_name,
+                'hedge_index': bet.hedge_index,
+                'profit': bet.profit_index
+            }
+            for bet in bet_list
+        ])
 
         vars = {
             'potential_profit': pot_value,
-            'bets' : bet_list, 
+            'bets' : bet_list,
+            'bets_json': bets_json,
             'settings': user_settings, 
             'bookmakers': bookmakers
         }
@@ -212,11 +249,33 @@ def profit_boost(request):
             formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
             bet.time = formatted_time
             bet_list.append(bet)
+
+        
         bet_list.sort(key = lambda bet : bet.profit_index, reverse=True)
         bet_list = bet_list[:int(request.GET.get('limit'))]
+
+        bets_json = json.dumps([
+            {
+                'title': bet.title,
+                'market': bet.market,
+                'time': bet.time,
+                'sport': bet.sport,
+                'bonus_bet': bet.bonus_bet,
+                'bonus_odds': bet.bonus_odds,
+                'bonus_name': bet.bonus_name,
+                'hedge_bet': bet.hedge_bet,
+                'hedge_odds': bet.hedge_odds,
+                'hedge_name': bet.hedge_name,
+                'hedge_index': bet.hedge_index,
+                'profit': bet.profit_index
+            }
+            for bet in bet_list
+        ])
+
         vars = {
             'potential_profit': pot_value,
-            'bets' : bet_list, 
+            'bets' : bet_list,
+            'bets_json': bets_json,
             'settings': user_settings, 
             'bookmakers': bookmakers
         }

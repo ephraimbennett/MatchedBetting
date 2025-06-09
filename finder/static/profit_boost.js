@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rows = document.querySelectorAll("#bonus-bets-body tr");
     const explainBtn = document.getElementById("explain-btn");
 
-    rows.forEach((row) => {
+    rows.forEach((row, index) => {
         row.addEventListener("click", () => {
             // Remove 'selected' from all rows
             rows.forEach((r) => r.classList.remove("selected"));
@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // Enable the explain button
             explainBtn.disabled = false;
             explainBtn.classList.add("enabled");
+
+            row.dataset.index = index;
         });
     });
 
@@ -21,11 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalBody = document.getElementById("modal-body");
     const closeBtn = document.getElementById("close-modal");
 
+    const betMap = JSON.parse(document.getElementById('all-bets-data').textContent);
+
     explainBtn.addEventListener("click", () => {
         const selected = document.querySelector("#bonus-bets-body tr.selected");
         if (selected) {
 
-            modalBody.innerHTML = description(selected);
+            modalBody.innerHTML = description(selected, betMap);
             modal.classList.remove("hidden");
         }
     });
@@ -42,23 +46,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function description(selected) {
+function description(selected, betMap) {
 
-    let spans = selected.getElementsByTagName('span');
-    let tds = selected.getElementsByTagName('td');
-    let title = tds[0].innerHTML;
+
+    let boost_percentage = document.getElementById("boost_percentage").value;
+    let info = betMap[selected.dataset.index];
+
+    let title = info.title;
 
     let bonus_amount = document.getElementById("bonus-bet-amount").value;
-    let boost_percentage = document.getElementById("boost_percentage").value;
 
-    let net_profit = tds[4].innerText.replace("$", "");
-    let bonus_name = spans[4].innerText;
-    let bonus_odds = spans[3].innerText.split(" ")[1];
-    let bonus_maker = spans[3].innerText.split(" ")[0];
-    let hedge_amount = spans[6].innerText.split("$")[1]
-    let hedge_name = spans[6].innerText.split("$")[0]
-    let hedge_odds = spans[5].innerText.split(" ")[1];
-    let hedge_maker = spans[5].innerText.split(" ")[0];
+    let net_profit = info.profit.toFixed(2);
+    let bonus_name = info.bonus_name;
+    let bonus_odds = info.bonus_odds;
+    let bonus_maker = info.bonus_bet;
+    let hedge_amount = info.hedge_index.toFixed(2);
+    let hedge_name = info.hedge_name;
+    
+    let hedge_odds = info.hedge_odds;
+    let hedge_maker = info.hedge_bet;
 
     let hedge_payout = ((100 / parseFloat(Math.abs(hedge_odds))) + 1) * parseFloat(hedge_amount);
     hedge_payout = hedge_payout.toFixed(2);
@@ -92,8 +98,8 @@ function description(selected) {
 
   <p>
     If the <strong>hedge</strong> side hits, you will be given back 
-    <strong>$${hedge_payout}</strong> (including your stake), and will lose your bonus bet. 
-    Since the bonus bet is free, your total profit will be <strong>$${net_profit}</strong>!<br>
+    <strong>$${hedge_payout}</strong> (including your stake), and will lose your promotion bet. 
+    Your total profit will be <strong>$${net_profit}</strong>!<br>
     <b> hedge payout - (hedge stake + promotion stake) = profit </b> <br>
     <b>${hedge_payout} - (${hedge_amount} + ${bonus_amount}) = ${net_profit} </b>
   </p>
