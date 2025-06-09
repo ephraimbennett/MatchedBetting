@@ -1,53 +1,92 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt</title>
-    
+
+    <form id="settings-form">
+        <fieldset>
+            <legend>Select Type</legend>
+            <label>
+                <input type="radio" name="mode" value="timeout" checked>
+                Timeout
+            </label>
+            <label>
+                <input type="radio" name="mode" value="interval">
+                Interval
+            </label>
+        </fieldset>
+
+        <div style="margin-top: 1em;">
+            <label for="bet-minutes">Minutes for Bets:</label>
+            <input type="number" id="bet-minutes" name="bet_minutes" min="0" required>
+        </div>
+
+        <div style="margin-top: 1em;">
+            <label for="promo-minutes">Minutes for Promos:</label>
+            <input type="number" id="promo-minutes" name="promo_minutes" min="0" required>
+        </div>
+
+        <input type="button" id="start-button" onclick="start();" value="START">
+    </form>
+
     {% load static %}
     <link rel="stylesheet" href="{% static 'settings.css' %}">
 </head>
+
 <body>
     {% csrf_token %}
     <script>
-        // Data to send
-        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').getAttribute('value');
+        function start() {
+            // Data to send
+            const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').getAttribute('value');
 
-        
-        var count = 1;
-        // Post every 5 minutes to update bets, every 25 to update promos.
-        setTimeout(() => {
-            var tasks = ['update_bets']
-            if (count % 5 == 0) {
-                count = 1;
-                tasks.push('update_promos');
-            }
-            count++;
-            var data = {
-            tasks: tasks
-            };
-            fetch('/prompt/', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken' : csrfToken
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) throw new Error("Network response was not ok");
-                return response.text();
-            })
-            .then(result => {
-                console.log("Success:");
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-            console.log("um is this happening.");
-        }, 1 * 1000); // 1 minutes
+            const form = document.getElementById('settings-form');
 
+            // Get selected radio button value
+            var mode = form.querySelector('input[name="mode"]:checked').value;
+
+            // Get number input values
+            var betMinutes = parseInt(form.querySelector('#bet-minutes').value, 10);
+            var promoMinutes = parseInt(form.querySelector('#promo-minutes').value, 10);
+
+
+            var count = 1;
+            // Post every 5 minutes to update bets, every 25 to update promos.
+            
+            setTimeout(() => {
+                var tasks = ['update_bets']
+                if (count % promoMinutes == 0) {
+                    count = 1;
+                    tasks.push('update_promos');
+                }
+                count++;
+                var data = {
+                    tasks: tasks
+                };
+                fetch('/prompt/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Network response was not ok");
+                        return response.text();
+                    })
+                    .then(result => {
+                        console.log("Success:");
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                console.log("um is this happening.");
+            }, 1 * 1000 * 60 * betMinutes); // 1 minutes
+        }
     </script>
 
 </body>

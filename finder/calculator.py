@@ -39,12 +39,12 @@ def find_best_bets(data):
                 continue
             for outcome in bookie['markets'][0]['outcomes']:
                 if outcome['price'] > 0: # underdog
-                    if outcome['price'] > biggest_plus:
+                    if outcome['price'] > biggest_plus and outcome['name'] != m_name:
                         biggest_plus = outcome['price']
                         bet_bookie = bookie['title']
                         p_name = outcome['name']
                 else:
-                    if outcome['price'] > largest_minus:
+                    if outcome['price'] > largest_minus and outcome['name'] != p_name:
                         largest_minus = outcome['price']
                         hedge_bookie = bookie['title']
                         m_name = outcome['name']

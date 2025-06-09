@@ -70,8 +70,11 @@ def bonus_bets(request):
         print(len(bets))
 
         bets_json = []
+        bet_list = []
         for bet in bets:
-
+            if not (is_in_state(bet, user_settings.state)):
+                continue
+                pass
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
             local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
@@ -83,6 +86,7 @@ def bonus_bets(request):
 
             bet.profit_index *= float(bonus_size)
             bet.hedge_index *= float(bonus_size)
+            bet_list.append(bet)
             bets_json.append(bet)
         bets_json = json.dumps([
             {
@@ -99,12 +103,12 @@ def bonus_bets(request):
                 'hedge_index': bet.hedge_index,
                 'profit': bet.profit_index
             }
-            for bet in bets
+            for bet in bet_list
         ])
         
         vars = {
             'potential_profit': pot_value,
-            'bets' : bets,
+            'bets' : bet_list,
             'bets_json': bets_json, 
             'settings': user_settings, 
             'bookmakers': bookmakers
@@ -137,6 +141,9 @@ def second_chance(request):
         bets = SecondBet.objects.all().filter(bonus_bet__contains=bm).order_by("-profit_index")[:500]
         bet_list = []
         for bet in bets:
+            if not (is_in_state(bet, user_settings.state)):
+                continue
+
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
             local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
@@ -230,6 +237,9 @@ def profit_boost(request):
 
         bet_list = []
         for bet in bets:
+            if not (is_in_state(bet, user_settings.state)):
+                continue
+
             # need to calculate the actual profit and then replace the profit index with this
             odd_h = 100 / abs(bet.hedge_odds)
             odd_b = bet.bonus_odds / 100
@@ -289,3 +299,43 @@ def profit_boost(request):
         'settings': user_settings, 
         'bookmakers': bookmakers
     })
+
+
+states = {
+    "AZ": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetFred", "Bally Bet", "Hard Rock", "Sporttrade"],
+    "CO": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetFred", "Bally Bet", "Circa Sports", "Sporttrade", "SBK", "BetWildwood"],
+    "CT": ["DraftKings", "FanDuel", "Fanatics", "BetRivers"],
+    "DC": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET"],
+    "IL": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "Circa Sports"],
+    "IN": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "Bally Bet", "SBK"],
+    "IA": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetFred", "Bally Bet", "Circa Sports", "Hard Rock", "Sporttrade"],
+    "KS": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET"],
+    "KY": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "Bet365", "Circa Sports"],
+    "LA": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "ESPN BET", "BetRivers", "Bet365", "BetFred"],
+    "MA": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET"],
+    "ME": ["DraftKings", "Caesars"],
+    "MD": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bally Bet"],
+    "MI": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "BetParx", "Four Winds", "FireKeepers"],
+    "NH": ["DraftKings"],
+    "NC": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "Underdog Sports"],
+    "NJ": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetParx", "Hard Rock", "Sporttrade", "Borgata"],
+    "NY": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bally Bet"],
+    "OH": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "Hard Rock", "Betly"],
+    "OR": ["DraftKings"],
+    "PA": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetFred", "BetParx"],
+    "TN": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "Bet365", "Betly"],
+    "VA": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetFred", "Bally Bet", "Sporttrade"],
+    "VT": ["DraftKings", "FanDuel", "Fanatics"],
+    "WV": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Betly"],
+    "WY": ["FanDuel", "BetMGM"],
+    "NV": ["BetMGM", "Caesars", "WynnBet", "Circa Sports", "SuperBook"],
+    "FL": ["Hard Rock"],
+    "AK": ["Betly"]
+}
+
+
+def is_in_state(bet, state):
+    b1 = bet.bonus_bet
+    b2 = bet.hedge_bet
+    print( (b1 in states[state.code]) and b2 in states[state.code])
+    return (b1 in states[state.code]) and b2 in states[state.code]

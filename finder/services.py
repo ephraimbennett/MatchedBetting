@@ -17,9 +17,10 @@ def update_bets():
     SecondBet.objects.all().delete()
     BonusBet.objects.all().delete()
     ProfitBet.objects.all().delete()
+    BookMaker.objects.all().delete()
 
     # get the data, will change later obviously
-    key_api = "1fcbe0cddc5a8bbf56e301cb2a949d4a"
+    key_api = "613877bd65f59c36231ded6cfb016cca"
     url_sports = f"https://api.the-odds-api.com/v4/sports?apiKey={key_api}"
     domain = "https://api.the-odds-api.com/v4/sports/"
     response = requests.get(url=url_sports)
