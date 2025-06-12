@@ -1,0 +1,146 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --navbar-bg: #e0e0e0;
+    --navlink-color: #000000;
+    --navlink-hover-bg: #cccccc;
+    --bg-color-og: #ed7b08;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --navbar-bg: #333333;
+    --navlink-color: #ffffff;
+    --navlink-hover-bg: #555555;
+}
+
+.guide-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 30px; /* adds space below navbar */
+}
+
+.tutorial-progress {
+    width: 200px;
+    position: sticky;
+    top: 100px; /* space below navbar */
+    padding-left: 20px; /* <<< adds left margin */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.tutorial-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.tutorial-list {
+  background-color: var(--nav-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tutorial-list h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+}
+
+.tutorial-list ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tutorial-list li a {
+  display: block;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.tutorial-list li a::before {
+  content: "➤";
+  margin-right: 0.5rem;
+  color: var(--accent-color);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  transform: translateX(-8px);
+}
+
+.tutorial-list li a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tutorial-list li a:hover {
+  background-color: rgba(100, 100, 255, 0.1);
+  padding-left: 1.25rem;
+  color: var(--accent-color);
+}
+
+.tutorial-list li a.active {
+  background-color: rgba(25, 118, 210, 0.15);
+  color: var(--accent-color);
+  font-weight: bold;
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1rem;
+}
+
+.article-content {
+    flex: 1;
+    max-width: 800px;
+}
+
+.article-content h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.article-body {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.nav-buttons {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.nav-buttons a {
+    background-color: var(--navbar-bg);
+    color: var(--navlink-color);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-buttons a:hover {
+    background-color: var(--navlink-hover-bg);
+}
+
+

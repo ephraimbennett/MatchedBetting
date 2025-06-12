@@ -23,8 +23,8 @@
         <span class="user-info"><b>Welcome back, {{ request.user.email }}</b></span>
         <button class="nav-btn" onclick="logout()">Logout</button>
     {% else %}
+      <button class="nav-btn og" onclick="window.location.href='/register'">Sign Up</button>
       <button class="nav-btn" onclick="window.location.href='/login'">Login</button>
-      <button class="nav-btn" onclick="window.location.href='/register'">Sign Up</button>
     {% endif %}
       <!-- Future nav buttons here -->
       <button class="nav-btn" onclick="window.location.href='/guides'">Guides</button>
@@ -36,12 +36,13 @@
   <main class="landing-container">
     <section class="hero">
       <div class="hero-text">
+        <h1 class="hero-headline">Make Money Today.</h1>
         <h2 class="slogan">Take the promo, beat the house.</h2>
-        <p class="subtext">Maximize your earnings with our matched betting algorithm. Hedge smarter, not harder.</p>
+        <p class="subtext">Gaurantee your earnings with our matched betting algorithm. Hedge smarter, not harder.</p>
         {% if request.user.is_authenticated %}
         <button class="cta-btn" onclick="window.location.href='/dashboard'">Head to Dashboard</button>
         {% else %}
-        <button class="cta-btn" onclick="window.location.href='/register'">Get Started</button>
+        <button class="cta-btn og" onclick="window.location.href='/register'">Get Started</button>
         {% endif %}
       </div>
       <div class="hero-image">
@@ -55,17 +56,17 @@
       <div class="feature-grid">
         <div class="feature-item">
           <!-- Insert icon/image here -->
-          <h4>Find the Edge</h4>
-          <p>Our algorithm scans promotions and lines to uncover profitable bet opportunities.</p>
+          <h4>Find the Promotions</h4>
+          <p>Our algorithm scans thousands of promotions and lines to uncover profitable opportunities.</p>
         </div>
         <div class="feature-item">
           <!-- Insert icon/image here -->
-          <h4>Place Smart Bets</h4>
-          <p>Get step-by-step instructions to ensure you're never gambling, just profiting.</p>
+          <h4>Place Smart Hedge Bets</h4>
+          <p>Get step-by-step instructions to ensure you're <i>never</i> gambling, just profiting.</p>
         </div>
         <div class="feature-item">
           <!-- Insert icon/image here -->
-          <h4>Track Your Profits</h4>
+          <h4>Enjoy your risk free gains</h4>
           <p>Monitor your matched betting performance with an intuitive dashboard.</p>
         </div>
       </div>
@@ -73,6 +74,7 @@
 
     <section class="image-placeholder">
       <!-- Large image or infographic about matched betting -->
+       <img src="{% static 'images/infographic2.png' %}"></img> 
     </section>
 
     {% endblock %}

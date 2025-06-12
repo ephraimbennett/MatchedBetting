@@ -1,0 +1,41 @@
+{% extends "guides_list.html" %}
+
+{% block title %}{{ guide.title }}{% endblock %}
+{% load static %}
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'guides_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="guide-layout">
+    <aside class="tutorial-progress">
+        <h2 class="tutorial-title">Tutorial Progress</h2>
+        <ul class="tutorial-list">
+            {% for tutorial in tutorials %}
+            <li><a 
+                class="{% if tutorial.slug == guide.slug %}active{% endif %}"
+                href="/guides/{{ tutorial.slug }}"> {{ tutorial.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <section class="article-content">
+        <h1>{{ guide.title }}</h1>
+        <div class="article-body">
+            {{ guide.content|safe }}
+        </div>
+
+        <div class="nav-buttons">
+            {% if prev %}
+                <a href="{{ prev_guide }}">← Previous</a>
+            {% else %}
+                <span></span>
+            {% endif %}
+            
+            {% if next %}
+                <a href="{{ next_guide }}">Next →</a>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}

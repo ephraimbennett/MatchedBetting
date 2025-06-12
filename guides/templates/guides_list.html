@@ -17,8 +17,10 @@
         <div class="nav-left">
             <a href="/">Home</a>
             {% if not request.user.is_authenticated %}
+            <a href="/register">Signup</a>
             <a href="/login">Login</a>
-            <a href="/register">Register</a>
+            {% else %}
+            <a href="/dashboard">Dashboard</a>
             {% endif %}
             <a href="/forums">Forums</a>
             <a href="/guides">Guides</a>
@@ -28,9 +30,10 @@
         </div>
     </nav>
 
+    {% block content %}
     <!-- Main Content Area -->
     <main class="guides-main">
-        {% block content %}
+        
         <h1 class="guides-header">Guides</h1>
 
         <form class="search-bar" action="/guides/search/" method="get">
@@ -45,8 +48,9 @@
             <a href="/guides/common-mistakes">Common Mistakes to Avoid</a>
             <a href="/guides/advanced-strategies">Advanced Strategies</a>
         </div>
-        {% endblock %}
+        
     </main>
+    {% endblock %}
 
 </body>
 </html>

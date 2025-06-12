@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder Dashboard</title>
-    
+
     {% load static %}
     {% load humanize %}
     <link rel="stylesheet" href="{% static 'dashboard.css' %}">
@@ -14,6 +15,7 @@
     {% block extra_style %}
     {% endblock %}
 </head>
+
 <body>
 
     <!-- Side Navigation Menu -->
@@ -41,18 +43,39 @@
             <button onclick="toggleTheme();" id="theme-toggle">🌙</button>
         </div>
         {% block main %}
-        <!-- Grid of Betting Options -->
-        <div class="dashboard-grid">
-            <button onclick="window.location.href='/profit_boost'">Profit Boost</button>
-            <button onclick="window.location.href='/bonus_bets'">Bonus Bet</button>
-            <button onclick="window.location.href='/coming_soon'">Site Credit</button>
-            <button onclick="window.location.href='/second_chance'">Second Chance Bet</button>
-            <button onclick="window.location.href='/coming_soon'">Qualifying Bet</button>
-            <button onclick="window.location.href='/coming_soon'">Arbitrage</button>
+        <!-- Help Section -->
+        <div class="dashboard-help">
+            <h2>Need help?</h2>
+            <p>Matched betting can be overwhelming at first, but we've got you covered.
+                Learn the basics, explore strategy, and become confident in your first bets.</p>
+            <a href="/guides" class="help-link">Explore the Guides →</a>
         </div>
 
+        <!-- Bet Finders Section -->
+        <div class="bet-finders">
+            <h2 class="bet-finders-header">Bet Finders</h2>
+            <p>
+                Once you've obtained a promotion and 
+                determined what class of promo it falls into, use the finder to create your matched bet.
+            </p>
+            <div class="dashboard-grid">
+                <button onclick="window.location.href='/profit_boost'">Profit Boost</button>
+                <button onclick="window.location.href='/bonus_bets'">Bonus Bet</button>
+                <button onclick="window.location.href='/coming_soon'">Site Credit</button>
+                <button onclick="window.location.href='/second_chance'">Second Chance Bet</button>
+                <button onclick="window.location.href='/coming_soon'">Qualifying Bet</button>
+                <button onclick="window.location.href='/coming_soon'">Arbitrage</button>
+            </div>
+        </div>
+
+        <!-- Existing Promos Section -->
         <div class="promos-board">
-            <h2 class="promos-header">Promotions Available</h2>  <!-- New Header -->
+            <h2 class="promos-header">Promotions Available</h2>
+            <p>
+                These are just some of the available promotions that popular
+                bookmakers are running right now. Make sure to read the terms and conditions very carefully before
+                enrolling for them.
+            </p>
             {% for promo in promos %}
             <div class="promo-item">
                 <span class="promo-name">{{ promo.bookmaker }}</span>
@@ -68,4 +91,5 @@
     </div>
 
 </body>
+
 </html>

@@ -4,6 +4,7 @@
     --navbar-bg: #e0e0e0;
     --navlink-color: #000000;
     --navlink-hover-bg: #cccccc;
+    --bg-color-og: #ed7b08;
 }
 
 /* Dark Mode Overrides */
@@ -137,3 +138,4 @@ body {
 .guides-list a:hover {
     background-color: var(--navlink-hover-bg);
 }
+

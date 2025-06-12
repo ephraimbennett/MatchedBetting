@@ -62,8 +62,6 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    max-width: 600px;
-    margin: auto;
 }
 
 .dashboard-grid button {
@@ -197,4 +195,55 @@ body {
     background-color: var(--navbar-bg);
     color: var(--navlink-color);
     height: 100%;
+}
+
+
+/* Help Section */
+.dashboard-help {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.dashboard-help h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: var(--highlight-color);
+}
+
+.dashboard-help p {
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.help-link {
+    color: var(--button-bg);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.help-link:hover {
+    color: var(--button-hover-bg);
+}
+
+/* Bet Finders Section */
+.bet-finders {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    /*background-color: var(--card-bg);*/
+    border-radius: 10px;
+}
+
+.bet-finders-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid var(--button-bg);
+    padding-bottom: 5px;
+    color: var(--text-color);
 }
