@@ -65,10 +65,29 @@ function description(selected, betMap) {
     let hedge_maker = info.hedge_bet;
     console.log(info);
 
+    bonus_amount = parseFloat(bonus_amount).toFixed(2);
+    hedge_amount = parseFloat(hedge_amount).toFixed(2);
+
     let hedge_payout = ((100 / parseFloat(Math.abs(hedge_odds))) + 1) * parseFloat(hedge_amount);
-    let ret = (return_rate / 100) * bonus_amount;
-    let hedge_profit = hedge_payout + (return_rate / 100) * bonus_amount;
     hedge_payout = hedge_payout.toFixed(2);
+    let ret = (return_rate / 100) * bonus_amount;
+    ret = ret.toFixed(2);
+    let hedge_profit = hedge_payout + ret;
+    //hedge_profit = hedge_profit.toFixed(2);
+
+    let interim = "";
+    let interim_color = "";
+    let interim_val = hedge_payout - hedge_amount - bonus_amount;
+    
+    interim_val = interim_val.toFixed(2);
+    if (interim_val > 0) {
+        interim = `up ${interim_val}`;
+        interim_color = "#008000";
+    } else {
+        interim =  `down ${interim_val}`;
+        interim_color = "#993300";
+    }
+    
     let bonus_payout = (parseFloat(bonus_odds) / 100 + 1) * parseFloat(bonus_amount);
     bonus_payout = bonus_payout.toFixed(2);
     var template = `
@@ -79,10 +98,10 @@ function description(selected, betMap) {
     <strong>$${bonus_amount}</strong>, you can convert it into 
     <strong>$${net_profit}</strong> by placing <strong>$${bonus_amount}</strong> on 
     <strong>${bonus_name}</strong> at <em>${bonus_maker}</em> for 
-    <strong>${bonus_odds}</strong>
+    <strong>+${bonus_odds}</strong>
     and hedging that bet by placing 
     <strong>$${hedge_amount}</strong> on <strong>${hedge_name}</strong> at 
-    <em>${hedge_maker}</em> for <strong>${hedge_odds}</strong>. This assumes that the return rate for a second chance bet
+    <em>${hedge_maker}</em> for <strong>-${hedge_odds}</strong>. This assumes that the return rate for a second chance bet
     (site credit, bonus bet, etc.) is about ${return_rate}%.
   </p>
 
@@ -90,24 +109,49 @@ function description(selected, betMap) {
     No matter which side wins, you will profit <strong>$${net_profit}</strong>.
   </p>
 
-  <p>
-    If the <strong> promotion</strong> side hits, you will make <strong>$${bonus_payout}</strong> (including your stake), 
-    but will lose your hedge bet of <strong>$${hedge_amount}</strong>. 
-    You will then be left with <strong>$${net_profit}</strong> leftover!<br>
-    <b>promotion payout - (hedge stake + promotion stake) = profit </b> <br>
-    <b>${bonus_payout} - (${hedge_amount} + ${bonus_amount}) = ${net_profit} </b>
-  </p>
+  <h3>If the promotional side wins</h3>
+<table style="height: auto; width: 100%;">
+<tbody>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will receive your stake of $${bonus_amount} back, and also win $${(bonus_payout - bonus_amount).toFixed(2)} more at +${bonus_odds} odds.</td>
+<td style="width: 25%; height: auto;"><span style="color: #339966;">+ $${(bonus_payout - bonus_amount).toFixed(2)}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will lose your hedge stake which was $${hedge_amount}</td>
+<td style="width: 25%; height: auto;"><span style="color: #993300;">- $${hedge_amount}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">The difference is $${net_profit}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">&nbsp; $${net_profit}</span></td>
+</tr>
+</tbody>
+</table>
 
-  <p>
-    If the <strong>hedge</strong> side hits, you will be given back 
-    <strong>$${hedge_payout}</strong> (including your stake), and will lose your promotion bet. 
-    At this point, you will be at $${(hedge_payout - (parseFloat(hedge_amount) + parseFloat(bonus_amount))).toFixed(2)}. 
-    In order to be profitable, you <b> must </b> convert the $${bonus_amount} of bonus or site credit into $${ret}. <br>
-    You should make sure that your return rate is really around ${return_rate}% in order to make money!<br>
-    If done correctly, you will profit $${net_profit}
-    <b> (hedge payout + second chance return) - (hedge stake + promotion stake) = profit </b> <br>
-    <b>(${hedge_payout} + ${ret}) - (${hedge_amount} + ${bonus_amount}) = ${net_profit} </b>
-  </p>
+  <h3>&nbsp;If the hedge side wins</h3>
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will receive your hedge stake of $${hedge_amount} back and also win $${(hedge_payout - hedge_amount).toFixed(2)}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">+$${(hedge_payout - hedge_amount).toFixed(2)}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will lose your promotional stake of $${bonus_amount}.</td>
+<td style="width: 25%; height: auto;"><span style="color: #993300;">- $${bonus_amount}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">At this point you will be ${interim}</td>
+<td style="width: 25%; height: auto;"><span style="color: ${interim_color};">&nbsp; $${interim_val}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You use bonus bet conversion to turn $${bonus_amount} of credit into $${ret}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">+$${ret}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You are now up $${net_profit}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">&nbsp;$${net_profit}</span></td>
+</tr>
+</tbody>
+</table>
   
 `;
 

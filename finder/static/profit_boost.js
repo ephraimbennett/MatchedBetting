@@ -78,10 +78,10 @@ function description(selected, betMap) {
     <strong>$${bonus_amount}</strong>, you can convert it into 
     <strong>$${net_profit}</strong> by placing <strong>$${bonus_amount}</strong> on 
     <strong>${bonus_name}</strong> at <em>${bonus_maker}</em> for 
-    <strong>${bonus_odds}</strong> while applying your <strong>${boost_percentage}%</strong> profit boost
+    <strong>+${bonus_odds}</strong> while applying your <strong>${boost_percentage}%</strong> profit boost
     and hedging that bet by placing 
     <strong>$${hedge_amount}</strong> on <strong>${hedge_name}</strong> at 
-    <em>${hedge_maker}</em> for <strong>${hedge_odds}</strong>.
+    <em>${hedge_maker}</em> for <strong>-${hedge_odds}</strong>.
   </p>
 
   <p>

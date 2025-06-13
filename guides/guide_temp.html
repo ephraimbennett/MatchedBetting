@@ -1,7 +1,8 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Guides - Matched Betting{% endblock %}</title>
@@ -30,10 +31,9 @@
         </div>
     </nav>
 
-    {% block content %}
     <!-- Main Content Area -->
     <main class="guides-main">
-        
+        {% block content %}
         <h1 class="guides-header">Guides</h1>
 
         <form class="search-bar" action="/guides/search/" method="get">
@@ -42,13 +42,14 @@
         </form>
 
         <div class="guides-list">
-            {% for tutorial in tutorials %}
-            <a href="/guides/{{ tutorial.slug }}">{{ tutorial.title }}</a>
-            {% endfor %}
+            <a href="/guides/what-is-matched-betting">What is Matched Betting?</a>
+            <a href="/guides/how-to-use-free-bets">How to Use Free Bets Effectively</a>
+            <a href="/guides/arbitrage-vs-matched">Arbitrage vs Matched Betting</a>
+            <a href="/guides/common-mistakes">Common Mistakes to Avoid</a>
+            <a href="/guides/advanced-strategies">Advanced Strategies</a>
         </div>
-        
+        {% endblock %}
     </main>
-    {% endblock %}
 
 </body>
 </html>
