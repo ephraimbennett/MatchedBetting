@@ -123,6 +123,84 @@ def bonus_bets(request):
     })
 
 @login_required
+def site_credit(request):
+    user_settings, created = Settings.objects.get_or_create(user=request.user)
+    pot_value = 2000 if user_settings.state is None else user_settings.state.value
+    bookmakers = BookMaker.objects.all()
+
+    bonus_size = request.GET.get('amount')
+
+    if bonus_size:
+        bm = request.GET.get('bookmaker')
+        min_odds = request.GET.get('min-odds')
+        if bm != 'Any':
+            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
+        else:
+            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
+        print(len(bets))
+
+        bets_json = []
+        bet_list = []
+        for bet in bets:
+            if not (is_in_state(bet, user_settings.state)):
+                continue
+                pass
+            if bet.bonus_odds < int(min_odds):
+                continue
+            time_adj = bet.time.replace("Z", "+0000")
+            dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
+            local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
+            # Parse the timestamp into a datetime object
+            dt = datetime.fromisoformat(str(local_time))
+            # Format the datetime object into the desired string
+            formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
+            bet.time = formatted_time
+
+            # will need to recalculate profit
+            s = float(bonus_size)
+            odd_b = bet.bonus_odds / 100.0 + 1.0
+            odd_h = 100.0 / abs(bet.hedge_odds) + 1.0
+
+            bet.profit_index = s * (odd_b - odd_b / odd_h)
+            bet.hedge_index = (s * odd_b) / odd_h
+            bet_list.append(bet)
+            bets_json.append(bet)
+        bets_json = json.dumps([
+            {
+                'title': bet.title,
+                'market': bet.market,
+                'time': bet.time,
+                'sport': bet.sport,
+                'bonus_bet': bet.bonus_bet,
+                'bonus_odds': bet.bonus_odds,
+                'bonus_name': bet.bonus_name,
+                'hedge_bet': bet.hedge_bet,
+                'hedge_odds': bet.hedge_odds,
+                'hedge_name': bet.hedge_name,
+                'hedge_index': bet.hedge_index,
+                'profit': bet.profit_index
+            }
+            for bet in bet_list
+        ])
+        
+        vars = {
+            'potential_profit': pot_value,
+            'bets' : bet_list,
+            'bets_json': bets_json, 
+            'settings': user_settings, 
+            'bookmakers': bookmakers
+            }
+
+        return render(request, 'site_credit.html', vars)
+
+    
+    return render(request, 'site_credit.html', {
+        'potential_profit': pot_value,
+        'settings': user_settings, 
+        'bookmakers': bookmakers
+    }) 
+
+@login_required
 def second_chance(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
     bookmakers = BookMaker.objects.all()
