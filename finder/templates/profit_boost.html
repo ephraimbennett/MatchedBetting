@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block title %} Profit Boost Finder {% endblock %}
+
 {% block extra_style %}
 <link rel="stylesheet" href="{% static 'bonus_bets.css' %}">
 {% endblock %}
@@ -40,7 +42,7 @@
             <thead>
                 <tr>
                     <th>Event</th>
-                    <th>Time ({{ settings.state.timezone }})</th>
+                    <th>Time ({{ settings.timezone }})</th>
                     <th>Profit Boost Bet</th>
                     <th>Hedge Bet</th>
                     <th>Net Profit</th>
@@ -130,6 +132,11 @@
             sendAmount();
         }
     });
+    document.getElementById("boost_percentage").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendAmount();
+        }
+    });
 
     //this ensures the data inside our input fields don't get reset to their default value on page reload.
     document.addEventListener("DOMContentLoaded", function () {
@@ -138,11 +145,13 @@
         const savedLimit = urlParams.get("limit");
         const savedReturn = urlParams.get("return");
         const savedBookmaker = urlParams.get("bookmaker");
+        const savedBoost = urlParams.get("boost");
 
         if (savedAmount) document.getElementById("bonus-bet-amount").value = savedAmount;
         if (savedLimit) document.getElementById("bets-displayed").value = savedLimit;
         if (savedReturn) document.getElementById("return-rate").value = savedReturn;
         if (savedBookmaker) document.getElementById("bonus-bookmaker").value = savedBookmaker;
+        if (savedBoost) document.getElementById("boost_percentage").value = savedBoost;
     });
 
 </script>

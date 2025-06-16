@@ -52,7 +52,7 @@ def register(request):
             form.save()
             user = authenticate(request, email=form.cleaned_data['email'], password=form.cleaned_data['password1'])
             login(request, user)
-            return redirect('/')
+            return redirect('/settings')
         else:
             errors = {}
             print(form.errors.as_text())

@@ -1,5 +1,6 @@
 from playwright.sync_api import sync_playwright
 import re
+import requests
 
 def scrape_sportsbookreview(url):
     with sync_playwright() as p:
@@ -23,8 +24,10 @@ def scrape_sportsbookreview(url):
             # grab the url
             a = row.locator('a').first
             if a :
-                promo.append(a.get_attribute('href'))
-
+                r = requests.get(a.get_attribute('href'), allow_redirects=True)
+                #print(r.url.split('?')[0])  # Final resolved sportsbook URL
+                promo.append(r.url.split('?')[0])
+                
             promos.append(promo)
 
         return promos

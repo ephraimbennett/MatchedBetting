@@ -27,6 +27,9 @@ def dashboard(request):
     promos = Promo.objects.all()
     print("hhheey")
 
+    for promo in promos:
+        if promo.code != "No code required":
+            promo.code = "Check for code in terms and conditions"
 
     return render(request, "dashboard.html", {
         'potential_profit': pot_value,
@@ -53,15 +56,23 @@ def coming_soon(request):
     pot_value = 2000 if user_settings.state is None else user_settings.state.value
     return render(request, "coming_soon.html", {'potential_profit': pot_value, 'settings': user_settings})
 
+def shared_finder_context(settings):
+    
+    pot_value = 2000 if settings.state is None else settings.state.value
+    bookmakers = BookMaker.objects.all()
+    return {
+        'potential_profit': pot_value,
+        'settings': settings, 
+        'bookmakers': bookmakers
+    }
+
 @login_required
 def bonus_bets(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
-    pot_value = 2000 if user_settings.state is None else user_settings.state.value
-    bookmakers = BookMaker.objects.all()
+    context = shared_finder_context(user_settings)
 
     bonus_size = request.GET.get('amount')
     if bonus_size is not None:
-        #update_bets()
         bm = request.GET.get('bookmaker')
         if bm != 'Any':
             bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
@@ -74,14 +85,13 @@ def bonus_bets(request):
         for bet in bets:
             if not (is_in_state(bet, user_settings.state)):
                 continue
-                pass
-            time_adj = bet.time.replace("Z", "+0000")
-            dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
-            local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
-            # Parse the timestamp into a datetime object
-            dt = datetime.fromisoformat(str(local_time))
-            # Format the datetime object into the desired string
-            formatted_time = dt.strftime("%B %d, %Y %I:%M %p")
+
+
+            dt_utc = datetime.strptime(bet.time, "%Y-%m-%dT%H:%M:%S%z")
+            user_tz = pytz.timezone(user_settings.timezone)
+            dt_local = dt_utc.astimezone(user_tz)
+            formatted_time = dt_local.strftime("%B %d, %Y %I:%M %p")
+
             bet.time = formatted_time
 
             bet.profit_index *= float(bonus_size)
@@ -107,32 +117,25 @@ def bonus_bets(request):
         ])
         
         vars = {
-            'potential_profit': pot_value,
             'bets' : bet_list,
-            'bets_json': bets_json, 
-            'settings': user_settings, 
-            'bookmakers': bookmakers
-            }
+            'bets_json': bets_json
+        }
 
-        return render(request, 'bonus_bets.html', vars)
+        context.update(vars)
 
-    return render(request, 'bonus_bets.html', {
-        'potential_profit': pot_value,
-        'settings': user_settings, 
-        'bookmakers': bookmakers
-    })
+    return render(request, 'bonus_bets.html', context)
 
 @login_required
 def site_credit(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
-    pot_value = 2000 if user_settings.state is None else user_settings.state.value
-    bookmakers = BookMaker.objects.all()
+    context = shared_finder_context(user_settings)
 
     bonus_size = request.GET.get('amount')
 
     if bonus_size:
         bm = request.GET.get('bookmaker')
         min_odds = request.GET.get('min-odds')
+        print((min_odds))
         if bm != 'Any':
             bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
         else:
@@ -184,21 +187,12 @@ def site_credit(request):
         ])
         
         vars = {
-            'potential_profit': pot_value,
             'bets' : bet_list,
-            'bets_json': bets_json, 
-            'settings': user_settings, 
-            'bookmakers': bookmakers
-            }
-
-        return render(request, 'site_credit.html', vars)
-
+            'bets_json': bets_json
+        }
+        context.update(vars)
     
-    return render(request, 'site_credit.html', {
-        'potential_profit': pot_value,
-        'settings': user_settings, 
-        'bookmakers': bookmakers
-    }) 
+    return render(request, 'site_credit.html', context) 
 
 @login_required
 def second_chance(request):

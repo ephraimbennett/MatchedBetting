@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block title %}Bonus Bet Finder{% endblock %}
+
 {% block extra_style %}
 <link rel="stylesheet" href="{% static 'bonus_bets.css' %}">
 {% endblock %}
@@ -37,7 +39,7 @@
             <thead>
                 <tr>
                     <th>Event</th>
-                    <th>Time ( {{ settings.state.timezone }})</th>
+                    <th>Time ({{ settings.timezone }})</th>
                     <th>Bonus Bet</th>
                     <th>Hedge Bet</th>
                     <th>Net Profit</th>

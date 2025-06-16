@@ -27,5 +27,15 @@
         <a href="{% url 'dashboard' %}" class="back-btn">← Back to Dashboard</a>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const selectElement = document.getElementById("id_timezone");
+            selectElement.value = timezone;
+        });
+        
+
+    </script>
+
 </body>
 </html>

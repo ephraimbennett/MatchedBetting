@@ -67,6 +67,8 @@ function description(selected, betMap) {
     let hedge_payout = ((100 / parseFloat(Math.abs(hedge_odds))) + 1) * parseFloat(hedge_amount);
     hedge_payout = hedge_payout.toFixed(2);
     let bonus_payout = (parseFloat(bonus_odds) / 100) * parseFloat(bonus_amount);
+    bonus_payout = bonus_payout.toFixed(2);
+    
 
     var template = `
     <h3>${title}</h3>
