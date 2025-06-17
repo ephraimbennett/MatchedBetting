@@ -31,6 +31,11 @@
     </nav>
 
     {% block content %}
+    <script id="guides-data" type="application/json">
+        {{ tutorials_json|safe }}
+    </script>
+
+    <script src="{% static 'guides_list.js' %}"></script>
     <!-- Main Content Area -->
     <main class="guides-main">
         
@@ -38,7 +43,7 @@
 
         <form class="search-bar" action="/guides/search/" method="get">
             <input type="text" name="q" placeholder="Search for a guide..." />
-            <button type="submit">Search</button>
+            <!--<button type="submit">Search</button>-->
         </form>
 
         <div class="guides-list">
