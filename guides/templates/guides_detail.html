@@ -2,11 +2,9 @@
 
 {% block title %}{{ guide.title }}{% endblock %}
 {% load static %}
-{% block extra_style %}
-<link rel="stylesheet" href="{% static 'guides_detail.css' %}">
-{% endblock %}
 
-{% block content %}
+{% block main %}
+<link rel="stylesheet" href="{% static 'guides_detail.css' %}">
 <div class="guide-layout">
     <aside class="tutorial-progress">
         <h2 class="tutorial-title">Tutorial Progress</h2>

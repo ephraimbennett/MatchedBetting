@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
-    <title>HedgeR - Take the promo, beat the house</title>
+    <title>{% block title %}HedgeR - Take the promo, beat the house{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'new.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
 </head>
@@ -28,7 +28,7 @@
     {% endif %}
       <!-- Future nav buttons here -->
       <button class="nav-btn" onclick="window.location.href='/guides'">Guides</button>
-      <button class="nav-btn" onclick="window.location.href='/'">Home</button>   
+      <button class="nav-btn" onclick="window.location.href='/'">Home</button>
     </div>
   </header>
 
