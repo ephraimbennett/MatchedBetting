@@ -372,6 +372,73 @@ def profit_boost(request):
         'bookmakers': bookmakers
     })
 
+@login_required
+def qualifying_bet(request):
+    user_settings, created = Settings.objects.get_or_create(user=request.user)
+    context = shared_finder_context(user_settings)
+
+    bonus_size = request.GET.get('amount')
+    if bonus_size is not None:
+        bm = request.GET.get('bookmaker')
+        r = float(request.GET.get('return')) / 100.0
+        if bm != 'Any':
+            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
+        else:
+            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
+        print(len(bets))
+
+        bets_json = []
+        bet_list = []
+        for bet in bets:
+            if not (is_in_state(bet, user_settings.state)):
+                continue
+
+
+            dt_utc = datetime.strptime(bet.time, "%Y-%m-%dT%H:%M:%S%z")
+            user_tz = pytz.timezone(user_settings.timezone)
+            dt_local = dt_utc.astimezone(user_tz)
+            formatted_time = dt_local.strftime("%B %d, %Y %I:%M %p")
+
+            bet.time = formatted_time
+
+            # TBH, only difference is how we calculate these guys.
+            odd_h = 100 / abs(bet.hedge_odds) + 1
+            odd_b = bet.bonus_odds / 100 + 1
+
+            stake_b = float(bonus_size)
+
+            print(stake_b, r)
+            bet.profit_index = stake_b * (odd_b - (odd_b / odd_h) - 1 + r)
+            bet.hedge_index = stake_b * (odd_b / odd_h)
+            bet_list.append(bet)
+            bets_json.append(bet)
+        bets_json = json.dumps([
+            {
+                'title': bet.title,
+                'market': bet.market,
+                'time': bet.time,
+                'sport': bet.sport,
+                'bonus_bet': bet.bonus_bet,
+                'bonus_odds': bet.bonus_odds,
+                'bonus_name': bet.bonus_name,
+                'hedge_bet': bet.hedge_bet,
+                'hedge_odds': bet.hedge_odds,
+                'hedge_name': bet.hedge_name,
+                'hedge_index': bet.hedge_index,
+                'profit': bet.profit_index
+            }
+            for bet in bet_list
+        ])
+        
+        vars = {
+            'bets' : bet_list,
+            'bets_json': bets_json
+        }
+
+        context.update(vars)
+
+    return render(request, 'qualifying_bet.html', context)
+
 
 states = {
     "AZ": ["DraftKings", "FanDuel", "BetMGM", "Caesars", "Fanatics", "ESPN BET", "BetRivers", "Bet365", "BetFred", "Bally Bet", "Hard Rock", "Sporttrade"],
@@ -409,5 +476,4 @@ states = {
 def is_in_state(bet, state):
     b1 = bet.bonus_bet
     b2 = bet.hedge_bet
-    print( (b1 in states[state.code]) and b2 in states[state.code])
     return (b1 in states[state.code]) and b2 in states[state.code]

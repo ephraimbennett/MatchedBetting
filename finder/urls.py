@@ -9,5 +9,6 @@ urlpatterns = [
     path('profit_boost', views.profit_boost, name='profit_boost'),
     path('prompt/', views.prompt_action, name='prompt'),
     path('site_credit/', views.site_credit, name='site_credit'),
+    path('qualifying_bet/', views.qualifying_bet, name='qualifying_bet'),
     path('coming_soon/', views.coming_soon, name='coming_soon')
 ]

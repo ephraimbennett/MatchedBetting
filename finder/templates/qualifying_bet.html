@@ -1,0 +1,165 @@
+{% extends "dashboard.html" %}
+
+{% load static %}
+
+{% block title %} Qualifying Bet Finder {% endblock %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'bonus_bets.css' %}">
+{% endblock %}
+
+{% block main %}
+<script src="{% static 'qualifying_bet.js' %}"></script>
+<script id="all-bets-data" type="application/json">
+    {{ bets_json|safe }}
+</script>
+<div class="bonus-bets-container">
+    <!-- Bonus Bet Input Section -->
+    <div class="bonus-bet-input">
+        <label for="bonus-bet-amount">Qualifying Bet:</label>
+        <input type="number" id="bonus-bet-amount" name="bonus_bet" min="1" step="any" placeholder="Enter amount">
+
+        <label for="minimum-odds">Minimum Odds:</label>
+        <input type="number" id="minimum-odds" name="minimum-odds" placeholder="+100" value="100">
+
+        <label for="bets-displayed">Return Rate (%):</label>
+        <input type="number" id="return-rate" name="return_rate" min="1" max="100" value="70">
+
+        <label for="bets-displayed">Bets Displayed:</label>
+        <input type="number" id="bets-displayed" name="bets_displayed" min="1" max="200" value="50">
+
+        <label for="bonus-bookmaker"> Bookmaker:</label>
+        <select id="bonus-bookmaker" name="bonus_bookmaker">
+            <option value="" selected >All</option> <!-- Default option -->
+            {% for bookmaker in bookmakers %}
+                <option value="{{ bookmaker.title }}">{{ bookmaker.title }}</option>
+            {% endfor %}
+        </select>
+
+        <button id="find-bonus-bets">Find</button>
+    </div>
+
+    <!-- Bonus Bet Table -->
+    <div class="bonus-bets-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Time ({{ settings.timezone }})</th>
+                    <th>Qualifying Bet</th>
+                    <th>Hedge Bet</th>
+                    <th>Net Profit</th>
+                </tr>
+            </thead>
+            <tbody id="bonus-bets-body">
+                {% for bet in bets %}  <!-- Default limit to 50 -->
+                <tr>
+                    <td>
+                        <span>{{ bet.title }}</span> <br>
+                        <span>{{ bet.market }}</span> <br>
+                        <span>{{ bet.sport }}</span>
+                    </td>
+                    <td>{{ bet.time }}</td>
+                    <td>
+                        <span>{{ bet.bonus_bet }} +{{ bet.bonus_odds }}</span> <br>
+                        <span>{{ bet.bonus_name }}</span>
+                    </td>
+                    <td>
+                        <span>{{ bet.hedge_bet }} {{ bet.hedge_odds }}</span> <br>
+                        <span>{{ bet.hedge_name }} ${{ bet.hedge_index|floatformat:2 }}</span>
+                    </td>
+                    <td>${{ bet.profit_index|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="explain-modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="close-modal" class="close">&times;</span>
+        <h3>Bet Explanation</h3>
+        <div id="modal-body">
+            <!-- Filled dynamically -->
+        </div>
+    </div>
+</div>
+<button id="explain-btn" disabled class="explain-button">Explain This</button>
+
+
+<!-- JavaScript for handling the form submission -->
+<script>
+    //this function sends the get request for any and all input change
+    function sendAmount() {
+        let amount = document.getElementById("bonus-bet-amount").value;
+        let betLimit = document.getElementById("bets-displayed").value;
+        let ret = document.getElementById("return-rate").value;
+        let bookmaker = document.getElementById("bonus-bookmaker").value;
+        let mo = document.getElementById("minimum-odds").value;
+
+        if (!amount || amount <= 0) {
+            alert("Please enter a valid bonus bet amount.");
+            return;
+        }
+
+        if (!betLimit || betLimit < 1 || betLimit > 200) {
+            alert("Please enter a valid number of bets to display (1-200).");
+            return;
+        }
+
+        if (!ret || ret < 1 || ret > 100) {
+            alert("Please enter a valid return rate (0-100).");
+            return;
+        }
+
+        // Redirect to backend with bonus bet amount and bet display limit
+        let ur = `/qualifying_bet?amount=${amount}&limit=${betLimit}&bookmaker=${bookmaker}&return=${ret}&min-odds=${mo}`;
+        window.location.href = ur;
+        
+    };
+
+
+    //these are the event listeners
+    document.getElementById("find-bonus-bets").addEventListener("click", function() {
+        sendAmount();
+    });
+
+    document.getElementById("bonus-bet-amount").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendAmount();
+        }
+    });
+    document.getElementById("bets-displayed").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendAmount();
+        }
+    });
+    document.getElementById("bonus-bookmaker").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendAmount();
+        }
+    });
+    document.getElementById("return-rate").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendAmount();
+        }
+    });
+
+    //this ensures the data inside our input fields don't get reset to their default value on page reload.
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const savedAmount = urlParams.get("amount");
+        const savedLimit = urlParams.get("limit");
+        const savedReturn = urlParams.get("return");
+        const savedBookmaker = urlParams.get("bookmaker");
+
+        console.log(savedReturn);
+
+        if (savedAmount) document.getElementById("bonus-bet-amount").value = savedAmount;
+        if (savedLimit) document.getElementById("bets-displayed").value = savedLimit;
+        if (savedReturn) document.getElementById("return-rate").value = savedReturn;
+        if (savedBookmaker) document.getElementById("bonus-bookmaker").value = savedBookmaker;
+    });
+
+</script>
+{% endblock %}
