@@ -137,7 +137,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # List valid domains for csrf
-CSRF_TRUSTED_ORIGINS = ['https://hedgeapp-web-974392355080.us-central1.run.app']
+CSRF_TRUSTED_ORIGINS = ['https://hedgeapp-web-974392355080.us-central1.run.app', 'https://hedgedbetting.com',
+                        'https://www.hedgedbetting.com']
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

@@ -57,7 +57,7 @@
             // Post every 5 minutes to update bets, every 25 to update promos.
             
             setTimeout(() => {
-                var tasks = ['update_promos']
+                var tasks = ['update_bets']
                 if (count % promoMinutes == 0) {
                     count = 1;
                     tasks.push('update_promos');
