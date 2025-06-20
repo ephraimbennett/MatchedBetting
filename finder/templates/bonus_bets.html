@@ -55,12 +55,12 @@
                     </td>
                     <td>{{ bet.time }}</td>
                     <td>
-                        <span>{{ bet.bonus_bet }} +{{ bet.bonus_odds }}</span> <br>
-                        <span>{{ bet.bonus_name }}</span>
+                        <span>{{ bet.bonus_line.bookmaker }} +{{ bet.bonus_line.odds }}</span> <br>
+                        <span>{{ bet.bonus_line.side }}</span>
                     </td>
                     <td>
-                        <span>{{ bet.hedge_bet }} {{ bet.hedge_odds }}</span> <br>
-                        <span>{{ bet.hedge_name }} ${{ bet.hedge_index|floatformat:2 }}</span>
+                        <span>{{ bet.hedge_line.bookmaker }} {{ bet.hedge_line.odds }}</span> <br>
+                        <span>{{ bet.hedge_line.side }} ${{ bet.hedge_index|floatformat:2 }}</span>
                     </td>
                     <td>${{ bet.profit_index|floatformat:2 }}</td>
                 </tr>

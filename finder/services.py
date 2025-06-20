@@ -1,5 +1,6 @@
-from .models import BonusBet, SecondBet, BookMaker, Promo, ProfitBet, State
+from .models import BonusBet, SecondBet, BookMaker, Promo, ProfitBet, State, Event, Line
 from .calculator import calculate_all
+from .events import find_events
 from datetime import datetime, timezone, timedelta
 import json
 
@@ -150,6 +151,68 @@ def update_states():
     for state in states:
         model = State(code=state['abbrev'], name=state['name'], value=state['value'])
         model.save()
+
+def update_events():
+    key_api = "6460acbbea1121bc82e198afac414c53"
+    domain = "https://api.the-odds-api.com/v4/sports/"
+    url_sports = f"https://api.the-odds-api.com/v4/sports?apiKey={key_api}"
+    markets = "h2h,spreads,totals"
+    bookmakers = "fanduel,betmgm,betrivers,betus,betrivers,ballybet,draftkings,espnbet,hardrockbet"
+    
+    response = requests.get(url=url_sports)
+    sports_names = response.json()
+    
+
+    current_date_iso = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    seven_days_later = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=7)
+    seven_days_later_iso = seven_days_later.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    keys = []
+
+    current_date_iso = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+    seven_days_later = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=7)
+    seven_days_later_iso = seven_days_later.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+    for item in sports_names:
+        keys.append(item['key'])
+
+    sports = []
+    for key in keys:
+        url = f"{domain}{key}/events"
+        response = requests.get(url, params={
+            'sport': key,
+            'apiKey': key_api,
+            'commenceTimeFrom': current_date_iso,
+            'commenceTimeTo': seven_days_later_iso
+        })
+        if len(response.json()) > 0:
+            sports.append(key)
+
+    data = []
+    for key in sports:
+        url = f"{domain}{key}/odds"
+        response = requests.get(url, params={
+            'regions': 'us',
+            'oddsFormat': 'american',
+            'apiKey': key_api,
+            'markets': markets,
+            'bookmakers': bookmakers,
+            'commenceTimeFrom': current_date_iso,
+            'commenceTimeTo': seven_days_later_iso
+        })
+
+        data.extend(response.json())
+    x = find_events(data)
+    for event in x:
+        event_model = Event(title=event['title'], time=event['time'], sport=event['sport'], market=event['market'])
+        event_model.save()
+        for line in event['lines']:
+            Line.objects.create(
+            event=event_model,
+            bookmaker=line['bookmaker'],
+            side=line['side'],
+            odds=line['price']
+        )
 
 def print_smg():
     print("SMGSMGSMG\n\nSMHG\nde")

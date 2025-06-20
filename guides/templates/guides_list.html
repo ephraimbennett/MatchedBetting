@@ -2,9 +2,12 @@
 
 {% load static %}
 
+{% block title %}Guides - HedgedBetting {% endblock %}
+
+{% block extra_style %}<link rel="stylesheet" href="{% static 'guides_list.css' %}">{% endblock %}
+
 
 {% block main %}
-<link rel="stylesheet" href="{% static 'guides_list.css' %}">
 <script id="guides-data" type="application/json">
         {{ tutorials_json|safe }}
     </script>

@@ -82,3 +82,16 @@ class Settings(models.Model):
 class BookMaker(models.Model):
     title = models.TextField()
     states = models.ManyToManyField(State)
+
+    
+class Event(models.Model):
+    title = models.TextField(null=True)
+    market = models.TextField(null=True)
+    time = models.TextField(null=True)
+    sport = models.TextField(null=True)
+
+class Line(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='lines')
+    bookmaker = models.CharField(max_length=100, null=True)
+    side = models.CharField(max_length=100, null=True)
+    odds = models.IntegerField(null=True)

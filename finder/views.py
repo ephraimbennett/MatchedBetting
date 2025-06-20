@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Settings, BonusBet, SecondBet, BookMaker, Promo
-from .services import update_bets, update_promos, update_states
+from .services import update_bets, update_promos, update_states, update_events
+from .events import derive_bets
 from django.utils import timezone
 from datetime import datetime, timedelta
 import pytz
@@ -73,43 +74,44 @@ def bonus_bets(request):
 
     bonus_size = request.GET.get('amount')
     if bonus_size is not None:
-        bm = request.GET.get('bookmaker')
-        if bm != 'Any':
-            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
-        else:
-            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
-        print(len(bets))
 
+        bm = request.GET.get('bookmaker')
         bets_json = []
         bet_list = []
+        bets = derive_bets(bm, user_settings.state)
         for bet in bets:
-            if not (is_in_state(bet, user_settings.state)):
-                continue
-
-
+            
             dt_utc = datetime.strptime(bet.time, "%Y-%m-%dT%H:%M:%S%z")
             user_tz = pytz.timezone(user_settings.timezone)
             dt_local = dt_utc.astimezone(user_tz)
             formatted_time = dt_local.strftime("%B %d, %Y %I:%M %p")
 
             bet.time = formatted_time
+            
+            # calculate profit
+            # profit = S x (Ob - 1) x ((Oh - 1) / Oh)
+            s = float(bonus_size)
+            odd_b = bet.bonus_line.odds / 100.0 + 1.0
+            odd_h = 100.0 / abs(bet.hedge_line.odds) + 1.0
 
-            bet.profit_index *= float(bonus_size)
-            bet.hedge_index *= float(bonus_size)
+            bet.profit_index = s * (odd_b - 1) * ((odd_h - 1) / odd_h)
+            bet.hedge_index = s * ((odd_b - 1) / odd_h)
             bet_list.append(bet)
             bets_json.append(bet)
+        bet_list.sort(key = lambda bet : bet.profit_index, reverse=True)
+        bet_list = bet_list[:int(request.GET.get('limit'))]
         bets_json = json.dumps([
             {
                 'title': bet.title,
                 'market': bet.market,
                 'time': bet.time,
                 'sport': bet.sport,
-                'bonus_bet': bet.bonus_bet,
-                'bonus_odds': bet.bonus_odds,
-                'bonus_name': bet.bonus_name,
-                'hedge_bet': bet.hedge_bet,
-                'hedge_odds': bet.hedge_odds,
-                'hedge_name': bet.hedge_name,
+                'bonus_bet': bet.bonus_line.bookmaker,
+                'bonus_odds': bet.bonus_line.odds,
+                'bonus_name': bet.bonus_line.side,
+                'hedge_bet': bet.hedge_line.bookmaker,
+                'hedge_odds': bet.hedge_line.odds,
+                'hedge_name': bet.hedge_line.side,
                 'hedge_index': bet.hedge_index,
                 'profit': bet.profit_index
             }
@@ -135,21 +137,14 @@ def site_credit(request):
     if bonus_size:
         bm = request.GET.get('bookmaker')
         min_odds = request.GET.get('min-odds')
-        print((min_odds))
-        if bm != 'Any':
-            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
-        else:
-            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
-        print(len(bets))
+        bets = derive_bets(bm, user_settings.state)
 
         bets_json = []
         bet_list = []
         for bet in bets:
-            if not (is_in_state(bet, user_settings.state)):
+            if bet.bonus_line.odds < int(min_odds):
                 continue
-                pass
-            if bet.bonus_odds < int(min_odds):
-                continue
+
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
             local_time = dt_utc.astimezone(pytz.timezone(user_settings.timezone))
@@ -161,25 +156,27 @@ def site_credit(request):
 
             # will need to recalculate profit
             s = float(bonus_size)
-            odd_b = bet.bonus_odds / 100.0 + 1.0
-            odd_h = 100.0 / abs(bet.hedge_odds) + 1.0
+            odd_b = bet.bonus_line.odds / 100.0 + 1.0
+            odd_h = 100.0 / abs(bet.hedge_line.odds) + 1.0
 
             bet.profit_index = s * (odd_b - odd_b / odd_h)
             bet.hedge_index = (s * odd_b) / odd_h
             bet_list.append(bet)
             bets_json.append(bet)
+        bet_list.sort(key= lambda bet : bet.profit_index, reverse=True)
+        bet_list = bet_list[:int(request.GET.get('limit'))]
         bets_json = json.dumps([
             {
                 'title': bet.title,
                 'market': bet.market,
                 'time': bet.time,
                 'sport': bet.sport,
-                'bonus_bet': bet.bonus_bet,
-                'bonus_odds': bet.bonus_odds,
-                'bonus_name': bet.bonus_name,
-                'hedge_bet': bet.hedge_bet,
-                'hedge_odds': bet.hedge_odds,
-                'hedge_name': bet.hedge_name,
+                'bonus_bet': bet.bonus_line.bookmaker,
+                'bonus_odds': bet.bonus_line.odds,
+                'bonus_name': bet.bonus_line.side,
+                'hedge_bet': bet.hedge_line.bookmaker,
+                'hedge_odds': bet.hedge_line.odds,
+                'hedge_name': bet.hedge_line.side,
                 'hedge_index': bet.hedge_index,
                 'profit': bet.profit_index
             }
@@ -197,8 +194,7 @@ def site_credit(request):
 @login_required
 def second_chance(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
-    bookmakers = BookMaker.objects.all()
-    pot_value = 2000 if user_settings.state is None else user_settings.state.value
+    context = shared_finder_context(user_settings)
 
     second_size = request.GET.get('amount')
     if second_size is not None:
@@ -209,12 +205,9 @@ def second_chance(request):
         # grab the bookmaker
         bm = request.GET.get('bookmaker')
 
-        # we want to grab the first 500 bets, because we don't know how profitable they really are yet. 
-        bets = SecondBet.objects.all().filter(bonus_bet__contains=bm).order_by("-profit_index")[:500]
+        bets = derive_bets(bm, user_settings.state)
         bet_list = []
         for bet in bets:
-            if not (is_in_state(bet, user_settings.state)):
-                continue
 
             time_adj = bet.time.replace("Z", "+0000")
             dt_utc = datetime.strptime(time_adj, "%Y-%m-%dT%H:%M:%S%z")
@@ -228,8 +221,8 @@ def second_chance(request):
 
             # H = (Ob * S - S * r) / Oh,
             # P = Ob * S - S - (Ob * S - S * r) / Oh
-            odd_h = 1 + 100 / abs(bet.hedge_odds)
-            odd_b = 1 + bet.bonus_odds / 100
+            odd_h = 1 + 100 / abs(bet.hedge_line.odds)
+            odd_b = 1 + bet.bonus_line.odds / 100
             hedge = (odd_b * S - S * r) / odd_h
             profit = odd_b * S - S - hedge
 
@@ -247,12 +240,12 @@ def second_chance(request):
                 'market': bet.market,
                 'time': bet.time,
                 'sport': bet.sport,
-                'bonus_bet': bet.bonus_bet,
-                'bonus_odds': bet.bonus_odds,
-                'bonus_name': bet.bonus_name,
-                'hedge_bet': bet.hedge_bet,
-                'hedge_odds': bet.hedge_odds,
-                'hedge_name': bet.hedge_name,
+                'bonus_bet': bet.bonus_line.bookmaker,
+                'bonus_odds': bet.bonus_line.odds,
+                'bonus_name': bet.bonus_line.side,
+                'hedge_bet': bet.hedge_line.bookmaker,
+                'hedge_odds': bet.hedge_line.odds,
+                'hedge_name': bet.hedge_line.side,
                 'hedge_index': bet.hedge_index,
                 'profit': bet.profit_index
             }
@@ -260,19 +253,12 @@ def second_chance(request):
         ])
 
         vars = {
-            'potential_profit': pot_value,
             'bets' : bet_list,
-            'bets_json': bets_json,
-            'settings': user_settings, 
-            'bookmakers': bookmakers
+            'bets_json': bets_json
         }
-        return render(request, 'second_chance.html', vars)
+        context.update(vars)
 
-    return render(request, 'second_chance.html', {
-        'potential_profit': pot_value,
-        'settings': user_settings, 
-        'bookmakers': bookmakers
-    })
+    return render(request, 'second_chance.html', context)
 
 @login_required
 def prompt_action(request):
@@ -290,18 +276,14 @@ def prompt_action(request):
 @login_required
 def profit_boost(request):
     user_settings, created = Settings.objects.get_or_create(user=request.user)
-    bookmakers = BookMaker.objects.all()
-    pot_value = 2000 if user_settings.state is None else user_settings.state.value
+    context = shared_finder_context(user_settings)
     
 
     bonus_size = request.GET.get('amount')
 
     if bonus_size is not None:
         bm = request.GET.get('bookmaker')
-        if bm != 'Any':
-            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:500]
-        else:
-            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
+        bets = derive_bets(bm, user_settings.state)
 
         # grab the bonus stake and the boost percentage
         stake_b = float(request.GET.get('amount'))
@@ -309,16 +291,13 @@ def profit_boost(request):
 
         bet_list = []
         for bet in bets:
-            if not (is_in_state(bet, user_settings.state)):
-                continue
 
             # need to calculate the actual profit and then replace the profit index with this
-            odd_h = 100 / abs(bet.hedge_odds)
-            odd_b = bet.bonus_odds / 100
+            odd_h = 100 / abs(bet.hedge_line.odds)
+            odd_b = bet.bonus_line.odds / 100
             bet.profit_index = (odd_b * boost) - (odd_b * boost + 1) / (odd_h + 1) 
             bet.profit_index *= stake_b
             # calculate hedge size as well
-            
             bet.hedge_index = stake_b
             bet.hedge_index *= (odd_b * boost + 1) / (odd_h + 1)
 
@@ -342,12 +321,12 @@ def profit_boost(request):
                 'market': bet.market,
                 'time': bet.time,
                 'sport': bet.sport,
-                'bonus_bet': bet.bonus_bet,
-                'bonus_odds': bet.bonus_odds,
-                'bonus_name': bet.bonus_name,
-                'hedge_bet': bet.hedge_bet,
-                'hedge_odds': bet.hedge_odds,
-                'hedge_name': bet.hedge_name,
+                'bonus_bet': bet.bonus_line.bookmaker,
+                'bonus_odds': bet.bonus_line.odds,
+                'bonus_name': bet.bonus_line.side,
+                'hedge_bet': bet.hedge_line.bookmaker,
+                'hedge_odds': bet.hedge_line.odds,
+                'hedge_name': bet.hedge_line.side,
                 'hedge_index': bet.hedge_index,
                 'profit': bet.profit_index
             }
@@ -355,22 +334,15 @@ def profit_boost(request):
         ])
 
         vars = {
-            'potential_profit': pot_value,
             'bets' : bet_list,
-            'bets_json': bets_json,
-            'settings': user_settings, 
-            'bookmakers': bookmakers
+            'bets_json': bets_json
         }
 
-        return render(request, 'profit_boost.html', vars)
+        context.update(vars)
             
 
 
-    return render(request, 'profit_boost.html', {
-        'potential_profit': pot_value,
-        'settings': user_settings, 
-        'bookmakers': bookmakers
-    })
+    return render(request, 'profit_boost.html', context)
 
 @login_required
 def qualifying_bet(request):
@@ -381,17 +353,12 @@ def qualifying_bet(request):
     if bonus_size is not None:
         bm = request.GET.get('bookmaker')
         r = float(request.GET.get('return')) / 100.0
-        if bm != 'Any':
-            bets = BonusBet.objects.filter(bonus_bet__contains=bm).order_by("-profit_index")[:int(request.GET.get('limit'))]
-        else:
-            bets = BonusBet.objects.all().order_by("-profit_index")[:int(request.GET.get('limit'))]
+        bets = derive_bets(bm, user_settings.state)
         print(len(bets))
 
         bets_json = []
         bet_list = []
         for bet in bets:
-            if not (is_in_state(bet, user_settings.state)):
-                continue
 
 
             dt_utc = datetime.strptime(bet.time, "%Y-%m-%dT%H:%M:%S%z")
@@ -402,8 +369,8 @@ def qualifying_bet(request):
             bet.time = formatted_time
 
             # TBH, only difference is how we calculate these guys.
-            odd_h = 100 / abs(bet.hedge_odds) + 1
-            odd_b = bet.bonus_odds / 100 + 1
+            odd_h = 100 / abs(bet.hedge_line.odds) + 1
+            odd_b = bet.bonus_line.odds / 100 + 1
 
             stake_b = float(bonus_size)
 
@@ -412,18 +379,21 @@ def qualifying_bet(request):
             bet.hedge_index = stake_b * (odd_b / odd_h)
             bet_list.append(bet)
             bets_json.append(bet)
+
+        bet_list.sort(key = lambda bet : bet.profit_index, reverse=True)
+        bet_list = bet_list[:int(request.GET.get('limit'))]
         bets_json = json.dumps([
             {
                 'title': bet.title,
                 'market': bet.market,
                 'time': bet.time,
                 'sport': bet.sport,
-                'bonus_bet': bet.bonus_bet,
-                'bonus_odds': bet.bonus_odds,
-                'bonus_name': bet.bonus_name,
-                'hedge_bet': bet.hedge_bet,
-                'hedge_odds': bet.hedge_odds,
-                'hedge_name': bet.hedge_name,
+                'bonus_bet': bet.bonus_line.bookmaker,
+                'bonus_odds': bet.bonus_line.odds,
+                'bonus_name': bet.bonus_line.side,
+                'hedge_bet': bet.hedge_line.bookmaker,
+                'hedge_odds': bet.hedge_line.odds,
+                'hedge_name': bet.hedge_line.side,
                 'hedge_index': bet.hedge_index,
                 'profit': bet.profit_index
             }

@@ -102,4 +102,4 @@ def auth_receiver(request):
     })
     login(request, user)
 
-    return redirect('/')
+    return redirect('/settings/')
