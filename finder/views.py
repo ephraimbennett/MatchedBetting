@@ -267,7 +267,7 @@ def prompt_action(request):
         if request.method == 'POST':
             tasks = json.loads(request.body)['tasks']
             if "update_bets" in tasks:
-                update_bets()
+                update_events()
             if "update_promos" in tasks:
                 update_promos()
         return render(request, 'prompt.html')

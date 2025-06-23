@@ -138,4 +138,15 @@
     background-color: var(--navlink-hover-bg);
 }
 
+/* Mobile */
+@media (max-width: 768px) {
+    .tutorial-progress {
+        display:none;
+    }
+    .article-content {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
 

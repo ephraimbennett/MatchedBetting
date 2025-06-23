@@ -18,7 +18,8 @@
     <div class="navbar-left">
       <h1 class="logo">HedgeR</h1>
     </div>
-    <div class="navbar-right">
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <div class="navbar-right" id="navMenu">
     
     {% if request.user.is_authenticated %}
         <span class="user-info"><b>Welcome back, {{ request.user.email }}</b></span>
