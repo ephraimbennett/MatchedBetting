@@ -153,6 +153,7 @@ def update_states():
         model.save()
 
 def update_events():
+    Event.objects.all().delete()
     key_api = "6460acbbea1121bc82e198afac414c53"
     domain = "https://api.the-odds-api.com/v4/sports/"
     url_sports = f"https://api.the-odds-api.com/v4/sports?apiKey={key_api}"
@@ -213,6 +214,7 @@ def update_events():
             side=line['side'],
             odds=line['price']
         )
+    print("All events updated.")
 
 def print_smg():
     print("SMGSMGSMG\n\nSMHG\nde")

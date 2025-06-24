@@ -48,6 +48,7 @@ def derive_bets(bookmaker, state):
         }
         if len(bookmaker) == 0:
             sides = {}
+            
         for line in e.lines.all():
             i += 1
             if line.bookmaker not in states[state.code]:
@@ -56,14 +57,15 @@ def derive_bets(bookmaker, state):
                 bet['bonus_side'].append(line)
             else:
                 bet['hedge_side'].append(line)
-
             if len(bookmaker) == 0:
                 sides.setdefault(line.side, []).append(line)
+                
         bet['bonus_side'].sort(key= lambda l : l.odds, reverse=True)
         bet['hedge_side'].sort(key= lambda l : l.odds, reverse=True)
         if len(bookmaker) == 0: 
-            skip = False
+            if len(sides) < 2: continue
 
+            skip = False
             side_names = list(sides.keys())
 
             for side in sides.values():
@@ -72,6 +74,8 @@ def derive_bets(bookmaker, state):
                 side.sort(key=lambda l : l.odds, reverse=True)
             if skip: continue
             
+            
+
             if sides[side_names[0]][0].odds > 0:
                 b_line = sides[side_names[0]][0]
                 h_line = sides[side_names[1]][0]

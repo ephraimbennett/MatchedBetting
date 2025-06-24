@@ -9,82 +9,117 @@
     <link rel="stylesheet" href="{% static 'new.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
     {% block extra_style %}{% endblock %}
+
+    {% block meta %}
+    <meta name="description"
+        content="Turn sportsbook promos into real profits with HedgedBetting.com. Learn matched betting, track bonuses, and optimize every bet.">
+    <meta name="keywords"
+        content="matched betting, bonus bets, hedge betting, sportsbook promotions, sports betting strategies">
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="HedgedBetting | Take the promo, beat the house">
+    <meta property="og:description"
+        content="Turn promotions into profit. Learn, track, and optimize your bets with HedgeR.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hedgedbetting.com/">
+    <meta property="og:image" content="https://hedgedbetting.com/static/images/scale3.png"> <!-- adjust path -->
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HedgedBetting | Take the promo, beat the house">
+    <meta name="twitter:description"
+        content="Turn sportsbook bonuses into profits with our free matched betting tools.">
+    <meta name="twitter:image" content="https://hedgedbetting.com/static/images/scale3.png">
+    {% endblock %}
+
+    {% block google_analytics %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XSVMPJL76"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4XSVMPJL76');
+    </script>
+    {% endblock %}
 </head>
 
 <body>
     <button class="theme-toggle-btn" id="themeToggle">Toggle Theme</button>
     <script src="{% static 'new.js' %}"></script>
-  <header class="navbar">
-    <div class="navbar-left">
-      <h1 class="logo">HedgeR</h1>
-    </div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <div class="navbar-right" id="navMenu">
-    
-    {% if request.user.is_authenticated %}
-        <span class="user-info"><b>Welcome back, {{ request.user.email }}</b></span>
-        <button class="nav-btn" onclick="logout()">Logout</button>
-    {% else %}
-      <button class="nav-btn og" onclick="window.location.href='/register'">Sign Up</button>
-      <button class="nav-btn" onclick="window.location.href='/login'">Login</button>
-    {% endif %}
-      <!-- Future nav buttons here -->
-      <button class="nav-btn" onclick="window.location.href='/guides'">Guides</button>
-      <button class="nav-btn" onclick="window.location.href='/'">Home</button>
-    </div>
-  </header>
-
-  {% block main %}
-  <main class="landing-container">
-    <section class="hero">
-      <div class="hero-text">
-        <h1 class="hero-headline">Make Money Today.</h1>
-        <h2 class="slogan">Take the promo, beat the house.</h2>
-        <p class="subtext">Guarantee your earnings with our matched betting algorithm. Hedge smarter, not harder.</p>
-        {% if request.user.is_authenticated %}
-        <button class="cta-btn" onclick="window.location.href='/dashboard'">Head to Dashboard</button>
-        {% else %}
-        <button class="cta-btn og" onclick="window.location.href='/register'">Get Started</button>
-        {% endif %}
-      </div>
-      <div class="hero-image">
-        <!-- Insert main promotional image here -->
-        <img src="{% static 'images/scale3.png' %}"></img> 
-      </div>
-    </section>
-
-    <section class="features">
-      <h3>How HedgeR Works</h3>
-      <div class="feature-grid">
-        <div class="feature-item">
-          <!-- Insert icon/image here -->
-          <h4>Find the Promotions</h4>
-          <p>Our algorithm scans thousands of promotions and lines to uncover profitable opportunities.</p>
+    <header class="navbar">
+        <div class="navbar-left">
+            <h1 class="logo">HedgedBetting.com</h1>
         </div>
-        <div class="feature-item">
-          <!-- Insert icon/image here -->
-          <h4>Place Smart Hedge Bets</h4>
-          <p>Get step-by-step instructions to ensure you're <i>never</i> gambling, just profiting.</p>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="navbar-right" id="navMenu">
+
+            {% if request.user.is_authenticated %}
+            <span class="user-info"><b>Welcome back, {{ request.user.email }}</b></span>
+            <button class="nav-btn" onclick="logout()">Logout</button>
+            {% else %}
+            <button class="nav-btn og" onclick="window.location.href='/register'">Sign Up</button>
+            <button class="nav-btn" onclick="window.location.href='/login'">Login</button>
+            {% endif %}
+            <!-- Future nav buttons here -->
+            <button class="nav-btn" onclick="window.location.href='/guides'">Guides</button>
+            <button class="nav-btn" onclick="window.location.href='/'">Home</button>
         </div>
-        <div class="feature-item">
-          <!-- Insert icon/image here -->
-          <h4>Enjoy your risk free gains</h4>
-          <p>Monitor your matched betting performance with an intuitive dashboard.</p>
-        </div>
-      </div>
-    </section>
+    </header>
 
-    <section class="image-placeholder">
-      <!-- Large image or infographic about matched betting -->
-       <img src="{% static 'images/infographic2.png' %}"></img> 
-    </section>
+    {% block main %}
+    <main class="landing-container">
+        <section class="hero">
+            <div class="hero-text">
+                <h1 class="hero-headline">Make Money Today.</h1>
+                <h2 class="slogan">Take the promo, beat the house.</h2>
+                <p class="subtext">Guarantee your earnings with our matched betting algorithm. Hedge smarter, not
+                    harder.</p>
+                {% if request.user.is_authenticated %}
+                <button class="cta-btn" onclick="window.location.href='/dashboard'">Head to Dashboard</button>
+                {% else %}
+                <button class="cta-btn og" onclick="window.location.href='/register'">Get Started</button>
+                {% endif %}
+            </div>
+            <div class="hero-image">
+                <!-- Insert main promotional image here -->
+                <img src="{% static 'images/scale3.png' %}"></img>
+            </div>
+        </section>
 
-    {% endblock %}
+        <section class="features">
+            <h3>How HedgeR Works</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <!-- Insert icon/image here -->
+                    <h4>Find the Promotions</h4>
+                    <p>Our algorithm scans thousands of promotions and lines to uncover profitable opportunities.</p>
+                </div>
+                <div class="feature-item">
+                    <!-- Insert icon/image here -->
+                    <h4>Place Smart Hedge Bets</h4>
+                    <p>Get step-by-step instructions to ensure you're <i>never</i> gambling, just profiting.</p>
+                </div>
+                <div class="feature-item">
+                    <!-- Insert icon/image here -->
+                    <h4>Enjoy your risk free gains</h4>
+                    <p>Monitor your matched betting performance with an intuitive dashboard.</p>
+                </div>
+            </div>
+        </section>
 
-    <footer class="footer">
-      <p>&copy; 2025 HedgeR. All rights reserved.</p>
-    </footer>
-  </main>
+        <section class="image-placeholder">
+            <!-- Large image or infographic about matched betting -->
+            <img src="{% static 'images/infographic2.png' %}"></img>
+        </section>
+
+        {% endblock %}
+
+        <footer class="footer">
+            <p>&copy; 2025 HedgeR. All rights reserved.</p>
+        </footer>
+    </main>
 </body>
 
 </html>

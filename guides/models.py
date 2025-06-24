@@ -10,6 +10,18 @@ class Guide(models.Model):
     content = models.TextField()
     published = models.DateField(auto_now_add=True)
 
+    meta_description = models.CharField(
+        max_length=160,
+        blank=True
+    )
+
+    keywords = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    image_url = models.URLField(blank=True)
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)

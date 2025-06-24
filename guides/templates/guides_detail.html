@@ -5,6 +5,24 @@
 
 {% block extra_style %} <link rel="stylesheet" href="{% static 'guides_detail.css' %}"> {% endblock %}
 
+{% block meta %}
+<meta name="description" content="{{ guide.meta_description|default:guide.content|truncatewords:25|striptags }}">
+<meta name="keywords" content="{{ guide.keywords|default:'matched betting, betting guide, sportsbook promo' }}">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ guide.title }}">
+<meta property="og:description" content="{{ guide.meta_description|default:guide.content|truncatewords:25|striptags }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{{ guide.image_url|default:'/static/guides_default.jpg' }}">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ guide.title }}">
+<meta name="twitter:description" content="{{ guide.meta_description|default:guide.content|truncatewords:25|striptags }}">
+<meta name="twitter:image" content="{{ guide.image_url|default:'/static/guides_default.jpg' }}">
+{% endblock %}
+
 {% block main %}
 
 <div class="guide-layout">
