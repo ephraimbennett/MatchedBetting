@@ -2,6 +2,10 @@ window.addEventListener("DOMContentLoaded", () => {
     const toggleBtn = document.getElementById("themeToggle");
 
     const currentTheme = localStorage.getItem("theme");
+    const infoLight = document.getElementById("infographic-light");
+    const infoDark = document.getElementById("infographic-dark");
+    
+
     if (currentTheme === "dark") {
         document.documentElement.setAttribute("data-theme", "dark");
         toggleBtn.textContent = '🌙';

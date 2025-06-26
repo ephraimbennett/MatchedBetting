@@ -48,6 +48,8 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .landing-container {
@@ -125,7 +127,7 @@ body {
 .image-placeholder {
     flex: 1 1 400px;
     min-height: 300px;
-    background-color: #ddd;
+    background-color: var(--bg-color);
     border-radius: 8px;
 }
 
@@ -322,4 +324,18 @@ img {
         padding: 0.5rem;
         font-size: 0.9rem;
     }
+}
+
+/* Default/light theme - hide infographic-dark */
+#infographic-dark {
+    display: none;
+}
+
+/* Dark theme - hide infographic-light and show infographic-dark */
+[data-theme="dark"] #infographic-light {
+    display: none;
+}
+
+[data-theme="dark"] #infographic-dark {
+    display: block; /* or whatever display value you want */
 }

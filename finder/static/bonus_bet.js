@@ -59,7 +59,7 @@ function description(selected, betMap) {
     let bonus_odds = info.bonus_odds;
     let bonus_maker = info.bonus_bet;
     let hedge_amount = info.hedge_index.toFixed(2);
-    let hedge_name = info.hedge_bet;
+    let hedge_name = info.hedge_name;
     
     let hedge_odds = info.hedge_odds;
     let hedge_maker = info.hedge_bet;
