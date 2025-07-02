@@ -31,6 +31,9 @@ RUN playwright install --with-deps
 # Copy the rest of the application code
 COPY . .
 
+# Collect static files into STATIC_ROOT
+RUN python manage.py collectstatic --noinput
+
 # Expose the port the app runs on
 EXPOSE 8080
 

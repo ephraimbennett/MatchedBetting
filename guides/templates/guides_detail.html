@@ -32,7 +32,7 @@
             {% for tutorial in tutorials %}
             <li><a 
                 class="{% if tutorial.slug == guide.slug %}active{% endif %}"
-                href="/guides/{{ tutorial.slug }}"> {{ tutorial.title }}</a></li>
+                href="/guides/{{ tutorial.slug }}/"> {{ tutorial.title }}</a></li>
             {% endfor %}
         </ul>
     </aside>
@@ -45,13 +45,13 @@
 
         <div class="nav-buttons">
             {% if prev %}
-                <a href="/guides/{{ prev.slug }}">← Previous</a>
+                <a href="/guides/{{ prev.slug }}/">← Previous</a>
             {% else %}
                 <span></span>
             {% endif %}
             
             {% if next %}
-                <a href="/guides/{{ next.slug }}">Next →</a>
+                <a href="/guides/{{ next.slug }}/">Next →</a>
             {% endif %}
         </div>
     </section>
