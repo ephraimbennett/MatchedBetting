@@ -31,11 +31,12 @@ RUN playwright install --with-deps
 # Copy the rest of the application code
 COPY . .
 
-# Collect static files into STATIC_ROOT
-RUN python manage.py collectstatic --noinput
-
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Command to run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+
+COPY entrypoint.sh /app/entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
+
