@@ -40,7 +40,8 @@ def get_prev_next(slug, tutorials):
 
 def get_tutorial():
     res = []
-    slugs = ['what-is-matched-betting', 'all-about-bonus-bets', 'priced-in-on-profit-boosts', 'serious-on-site-credit',
+    slugs = ['what-is-matched-betting', 'esssentials-how-to-read-odds', 'all-about-bonus-bets', 
+             'priced-in-on-profit-boosts', 'serious-on-site-credit',
              'succeed-with-second-chance', 'identifying-sportsbook-promotions']
     for s in slugs:
         res.append(Guide.objects.get(slug=s))
