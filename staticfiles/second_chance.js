@@ -1,0 +1,160 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll("#bonus-bets-body tr");
+    const explainBtn = document.getElementById("explain-btn");
+
+    rows.forEach((row, index) => {
+        row.addEventListener("click", () => {
+            // Remove 'selected' from all rows
+            rows.forEach((r) => r.classList.remove("selected"));
+
+            // Add 'selected' to clicked row
+            row.classList.add("selected");
+
+            // Enable the explain button
+            explainBtn.disabled = false;
+            explainBtn.classList.add("enabled");
+
+            row.dataset.index = index;
+        });
+    });
+
+
+    const modal = document.getElementById("explain-modal");
+    const modalBody = document.getElementById("modal-body");
+    const closeBtn = document.getElementById("close-modal");
+
+    const betMap = JSON.parse(document.getElementById('all-bets-data').textContent);
+
+    explainBtn.addEventListener("click", () => {
+        const selected = document.querySelector("#bonus-bets-body tr.selected");
+        if (selected) {
+
+            modalBody.innerHTML = description(selected, betMap);
+            modal.classList.remove("hidden");
+        }
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+});
+
+
+function description(selected, betMap) {
+
+    let info = betMap[selected.dataset.index];
+    let title = info.title;
+
+    let return_rate = document.getElementById("return-rate").value;
+
+    let bonus_amount = document.getElementById("bonus-bet-amount").value;
+
+    let net_profit = info.profit.toFixed(2);
+    let bonus_name = info.bonus_name;
+    let bonus_odds = info.bonus_odds;
+    let bonus_maker = info.bonus_bet;
+    let hedge_amount = info.hedge_index.toFixed(2);
+    let hedge_name = info.hedge_name;
+    let hedge_odds = info.hedge_odds;
+    let hedge_maker = info.hedge_bet;
+    console.log(info);
+
+    bonus_amount = parseFloat(bonus_amount).toFixed(2);
+    hedge_amount = parseFloat(hedge_amount).toFixed(2);
+
+    let hedge_payout = ((100 / parseFloat(Math.abs(hedge_odds))) + 1) * parseFloat(hedge_amount);
+    hedge_payout = hedge_payout.toFixed(2);
+    let ret = (return_rate / 100) * bonus_amount;
+    ret = ret.toFixed(2);
+    let hedge_profit = hedge_payout + ret;
+    //hedge_profit = hedge_profit.toFixed(2);
+
+    let interim = "";
+    let interim_color = "";
+    let interim_val = hedge_payout - hedge_amount - bonus_amount;
+    
+    interim_val = interim_val.toFixed(2);
+    if (interim_val > 0) {
+        interim = `up ${interim_val}`;
+        interim_color = "#008000";
+    } else {
+        interim =  `down ${interim_val}`;
+        interim_color = "#993300";
+    }
+    
+    let bonus_payout = (parseFloat(bonus_odds) / 100 + 1) * parseFloat(bonus_amount);
+    bonus_payout = bonus_payout.toFixed(2);
+    var template = `
+
+    <h3>${title}</h3>
+  <p>
+    Since you have a second chance bet, which refunds a loss up to
+    <strong>$${bonus_amount}</strong>, you can convert it into 
+    <strong>$${net_profit}</strong> by placing <strong>$${bonus_amount}</strong> on 
+    <strong>${bonus_name}</strong> at <em>${bonus_maker}</em> for 
+    <strong>+${bonus_odds}</strong>
+    and hedging that bet by placing 
+    <strong>$${hedge_amount}</strong> on <strong>${hedge_name}</strong> at 
+    <em>${hedge_maker}</em> for <strong>-${hedge_odds}</strong>. This assumes that the return rate for a second chance bet
+    (site credit, bonus bet, etc.) is about ${return_rate}%.
+  </p>
+
+  <p>
+    No matter which side wins, you will profit <strong>$${net_profit}</strong>.
+  </p>
+
+  <h3>If the promotional side wins</h3>
+<table style="height: auto; width: 100%;">
+<tbody>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will receive your stake of $${bonus_amount} back, and also win $${(bonus_payout - bonus_amount).toFixed(2)} more at +${bonus_odds} odds.</td>
+<td style="width: 25%; height: auto;"><span style="color: #339966;">+ $${(bonus_payout - bonus_amount).toFixed(2)}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will lose your hedge stake which was $${hedge_amount}</td>
+<td style="width: 25%; height: auto;"><span style="color: #993300;">- $${hedge_amount}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">The difference is $${net_profit}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">&nbsp; $${net_profit}</span></td>
+</tr>
+</tbody>
+</table>
+
+  <h3>&nbsp;If the hedge side wins</h3>
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will receive your hedge stake of $${hedge_amount} back and also win $${(hedge_payout - hedge_amount).toFixed(2)}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">+$${(hedge_payout - hedge_amount).toFixed(2)}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You will lose your promotional stake of $${bonus_amount}.</td>
+<td style="width: 25%; height: auto;"><span style="color: #993300;">- $${bonus_amount}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">At this point you will be ${interim}</td>
+<td style="width: 25%; height: auto;"><span style="color: ${interim_color};">&nbsp; $${interim_val}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You use bonus bet conversion to turn $${bonus_amount} of credit into $${ret}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">+$${ret}</span></td>
+</tr>
+<tr style="height: auto;">
+<td style="width: 75%; height: auto;">You are now up $${net_profit}</td>
+<td style="width: 25%; height: auto;"><span style="color: #008000;">&nbsp;$${net_profit}</span></td>
+</tr>
+</tbody>
+</table>
+  
+`;
+
+
+    return template;
+}

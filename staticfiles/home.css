@@ -1,0 +1,56 @@
+.dashboard-container {
+    text-align: center;
+    background-color: var(--header-bg); /* reused for box background */
+    padding: 30px;
+    border-radius: 10px;
+    margin: 50px auto;
+    max-width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-container h2 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.dashboard-container p {
+    color: var(--footer-text);
+    margin-bottom: 10px;
+}
+
+.dashboard-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-btn:hover {
+    background-color: #0056b3;
+}
+
+.logged-out-message {
+    text-align: center;
+    font-size: 24px;
+    color: var(--text-color);
+    font-weight: bold;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--header-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    line-height: 1.6;
+}
+.page-main {
+    background-image: url('/static/rich.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Ensures full height */
+    padding: 40px 20px;
+}

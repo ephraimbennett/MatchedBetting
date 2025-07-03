@@ -62,14 +62,10 @@ def register(request):
             })
     return render(request, "signup.html")
 
-def handler404(request, error):
+def handler404(request, exception):
     print("hah")
-    template = loader.get_template('404.html')
-    context = {
-        'request': request
-    }
     
-    return HttpResponse(template.render())
+    return render(request, '404.html')
 
 @csrf_exempt
 def auth_receiver(request):

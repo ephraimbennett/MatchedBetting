@@ -1,0 +1,249 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --header-bg: #f0f0f0;
+    --header-text: #000000;
+    --navbar-bg: #e0e0e0;
+    --navlink-color: #000000;
+    --navlink-hover-bg: #cccccc;
+    --footer-bg: #f0f0f0;
+    --footer-text: #000000;
+    --card-bg: #c7c3c3;
+    --highlight-color: #276e2a;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --header-text: #ffffff;
+    --navbar-bg: #333333;
+    --navlink-color: #ffffff;
+    --navlink-hover-bg: #555555;
+    --footer-bg: #1e1e1e;
+    --footer-text: #bbbbbb;
+    --card-bg: #1e1e1e;
+    --highlight-color: #4CAF50;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+}
+
+/* General Page Styling */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Dashboard Container */
+.dashboard-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Top Row */
+.dashboard-top {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Grid Layout for Betting Options */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.dashboard-grid button {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dashboard-grid button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    font-size: 32px;
+    color: var(--navlink-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Side Navigation Menu */
+.side-menu {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: var(--navbar-bg);
+    padding-top: 60px;
+    transition: 0.3s;
+}
+
+.side-menu a {
+    display: block;
+    padding: 15px;
+    color: var(--navlink-color);
+    text-decoration: none;
+}
+
+.side-menu a:hover {
+    background-color: var(--navlink-hover-bg);
+}
+
+/* Close Button */
+.close-menu {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--navlink-color);
+    cursor: pointer;
+}
+
+/* Open Side Menu */
+.side-menu.open {
+    left: 0;
+}
+
+/* Promotions Board */
+.promos-board {
+    margin-top: 30px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Individual Promo Item */
+.promo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Sportsbook Name */
+.promo-name {
+    font-weight: bold;
+    color: var(--highlight-color);
+    flex: 1;
+}
+
+/* Promotion Description */
+.promo-description {
+    flex: 3;
+    text-align: center;
+}
+
+/* Promo Button */
+.promo-button {
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.promo-button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Promotions Header */
+.promos-header {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--button-bg);
+    padding-bottom: 5px;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    background-color: var(--navbar-bg);
+    color: var(--navlink-color);
+    height: 100%;
+}
+
+
+/* Help Section */
+.dashboard-help {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.dashboard-help h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: var(--highlight-color);
+}
+
+.dashboard-help p {
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.help-link {
+    color: var(--button-bg);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.help-link:hover {
+    color: var(--button-hover-bg);
+}
+
+/* Bet Finders Section */
+.bet-finders {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    /*background-color: var(--card-bg);*/
+    border-radius: 10px;
+}
+
+.bet-finders-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid var(--button-bg);
+    padding-bottom: 5px;
+    color: var(--text-color);
+}

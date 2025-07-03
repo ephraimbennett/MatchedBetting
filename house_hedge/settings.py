@@ -28,7 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.getenv('DEBUG_ON') == "True")
+DEBUG = False
+#(os.getenv('DEBUG_ON') == "True")
+print("DEBUG =", DEBUG)
 
 ALLOWED_HOSTS = ['*']
 
@@ -67,7 +69,7 @@ APPEND_SLASH = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

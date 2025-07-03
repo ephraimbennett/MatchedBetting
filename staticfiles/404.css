@@ -1,0 +1,30 @@
+.not-found {
+    text-align: center;
+    padding: 50px;
+    margin-top: 50px;
+    border: 1px solid #ccc;
+    background-color: #444;
+}
+
+.not-found h2 {
+    color: #ff6666; /* Light red color for the header */
+}
+
+.not-found p {
+    color: #ddd;
+    font-size: 16px;
+}
+
+.not-found a {
+    color: #ddd;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+.not-found a:hover {
+    background-color: #555;
+    color: #fff;
+}

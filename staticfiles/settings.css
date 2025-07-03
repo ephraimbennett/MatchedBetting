@@ -1,0 +1,116 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --header-bg: #f0f0f0;
+    --header-text: #000000;
+    --navbar-bg: #e0e0e0;
+    --navlink-color: #000000;
+    --navlink-hover-bg: #cccccc;
+    --footer-bg: #f0f0f0;
+    --footer-text: #000000;
+    --card-bg: #ffffff;
+    --form-label-color: #444;
+    --input-bg: #ffffff;
+    --highlight-color: #4CAF50;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #1e1e1e;
+    --header-text: #ffffff;
+    --navbar-bg: #333333;
+    --navlink-color: #ffffff;
+    --navlink-hover-bg: #555555;
+    --footer-bg: #1e1e1e;
+    --footer-text: #bbbbbb;
+    --card-bg: #1e1e1e;
+    --form-label-color: #bbb;
+    --input-bg: #333;
+}
+
+/* Settings Page Container */
+.settings-container {
+    width: 350px;
+    margin: 60px auto;
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Header */
+.settings-container h2 {
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Labels */
+.form-group label {
+    color: var(--form-label-color);
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Dropdown Select */
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--navlink-hover-bg);
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+/* Save Button */
+.save-btn {
+    background-color: var(--button-bg);
+    color: white;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.save-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Back to Dashboard Button */
+.back-btn {
+    display: block;
+    margin-top: 15px;
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    color: var(--text-color);
+}
+
+/* Apply background to the entire page */
+body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
