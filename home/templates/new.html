@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
-    <title>{% block title %}HedgeR - Take the promo, beat the house{% endblock %}</title>
+    <title>{% block title %}HedgedBetting - Take the promo, beat the house{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'new.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
     {% block extra_style %}{% endblock %}
@@ -64,6 +64,7 @@
             <a class="nav-btn" href="/login">Login</a>
             {% endif %}
             <!-- Future nav buttons here -->
+            <a class="nav-btn" href="/articles/">Articles</a>
             <a class="nav-btn" href="/guides">Guides</a>
             <a class="nav-btn" href="/">Home</a>
         </div>
@@ -90,7 +91,7 @@
         </section>
 
         <section class="features">
-            <h3>How HedgeR Works</h3>
+            <h3>How HedgedBetting Works</h3>
             <div class="feature-grid">
                 <div class="feature-item">
                     <!-- Insert icon/image here -->
@@ -124,7 +125,7 @@
         {% endblock %}
 
         <footer class="footer">
-            <p>&copy; 2025 HedgeR. All rights reserved.</p>
+            <p>&copy; 2025 HedgedBetting. All rights reserved.</p>
         </footer>
     </main>
 </body>

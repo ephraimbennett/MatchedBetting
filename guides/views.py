@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Guide
+from .models import Guide, Article
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django.db.models import Q
@@ -46,6 +46,16 @@ def get_tutorial():
     for s in slugs:
         res.append(Guide.objects.get(slug=s))
     return res
+
+def articles_list(request):
+    to_display = Article.objects.all()
+
+    return render(request, 'articles_list.html', {'to_display': to_display})
+
+def articles_display(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+
+    return render(request, 'article_display.html', {'article': article})
 
 @require_GET
 def search(request):

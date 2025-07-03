@@ -1,0 +1,37 @@
+{% extends "new.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+{% load static %}
+
+{% block extra_style %} <link rel="stylesheet" href="{% static 'article_display.css' %}"> {% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
+<meta name="keywords" content="{{ article.keywords|default:'matched betting, betting guide, sportsbook promo' }}">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ article.title }}">
+<meta property="og:description" content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{{ article.image_url|default:'/static/guides_default.jpg' }}">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ article.title }}">
+<meta name="twitter:description" content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
+<meta name="twitter:image" content="{{ article.image_url|default:'/static/guides_default.jpg' }}">
+{% endblock %}
+
+{% block main %}
+
+<div class="guide-layout">
+
+    <section class="article-content">
+        <h1>{{ article.title }}</h1>
+        <div class="article-body">
+            {{ article.content|safe }}
+        </div>
+    </section>
+</div>
+{% endblock %}

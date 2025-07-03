@@ -1,0 +1,34 @@
+{% extends "new.html" %}
+
+{% load static %}
+
+{% block title %}Blog - HedgedBetting {% endblock %}
+
+{% block extra_style %}<link rel="stylesheet" href="{% static 'articles_list.css' %}">{% endblock %}
+
+
+{% block main %}
+
+<script src="{% static 'articles_list.js' %}"></script>
+<!-- Main Content Area -->
+<main class="articles-main">
+
+    <h1 class="articles-header">Community Articles</h1>
+
+    <form class="search-bar" action="/articles/search/" method="get">
+        <input type="text" name="q" placeholder="Search for a guide..." />
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="articles-list">
+        {% for article in to_display %}
+        <a href="/articles/{{ article.slug }}/">{{ article.title }}</a>
+        {% endfor %}
+    </div>
+
+</main>
+{% endblock %}
+
+</body>
+
+</html>
