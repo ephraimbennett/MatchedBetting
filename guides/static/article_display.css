@@ -90,3 +90,32 @@
         font-size: 1rem;
     }
 }
+
+.article-meta {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.article-category {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.article-tags {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.article-tags .tag {
+    background-color: var(--nav-bg);
+    color: var(--text-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    border: 1px solid var(--accent-color);
+}

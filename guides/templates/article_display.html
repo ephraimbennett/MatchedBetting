@@ -3,7 +3,8 @@
 {% block title %}{{ article.title }}{% endblock %}
 {% load static %}
 
-{% block extra_style %} <link rel="stylesheet" href="{% static 'article_display.css' %}"> {% endblock %}
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'article_display.css' %}"> {% endblock %}
 
 {% block meta %}
 <meta name="description" content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
@@ -11,7 +12,8 @@
 
 <!-- Open Graph -->
 <meta property="og:title" content="{{ article.title }}">
-<meta property="og:description" content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
+<meta property="og:description"
+    content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:image" content="{{ article.image_url|default:'/static/guides_default.jpg' }}">
@@ -19,7 +21,8 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ article.title }}">
-<meta name="twitter:description" content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
+<meta name="twitter:description"
+    content="{{ article.meta_description|default:article.content|truncatewords:25|striptags }}">
 <meta name="twitter:image" content="{{ article.image_url|default:'/static/guides_default.jpg' }}">
 {% endblock %}
 
@@ -29,6 +32,21 @@
 
     <section class="article-content">
         <h1>{{ article.title }}</h1>
+
+        <div class="article-meta">
+            {% if article.category %}
+            <p class="article-category">Category: {{ article.category.name|default:article.category }}</p>
+            {% endif %}
+
+            {% if article.tags.all %}
+            <ul class="article-tags">
+                {% for tag in article.tags.all %}
+                <li class="tag">{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
         <div class="article-body">
             {{ article.content|safe }}
         </div>

@@ -16,12 +16,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic.base import TemplateView
+from django.contrib.sitemaps.views import sitemap
+from guides.sitemaps import GuideSitemap, ArticleSitemap
+from home.sitemaps import StaticViewSitemap
+
+sitemaps = {
+    "guides": GuideSitemap,
+    "articles": ArticleSitemap,
+    "static": StaticViewSitemap
+}
 
 urlpatterns = [
     path('', include('home.urls')),
     path('', include('finder.urls')),
     path('', include('guides.urls')),
     path('admin/', admin.site.urls),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    )
+
 ]
 #handler404 = 'home.views.handler404'
 LOGIN_REDIRECT_URL = "/"
